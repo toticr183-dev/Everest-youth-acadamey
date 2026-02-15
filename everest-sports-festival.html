@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everest Sports Festival 2026 | 4 Houses Battle</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .header .date {
+            color: #666;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .houses-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ffcc00);
+            color: #333;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(255,215,0,0.3);
+        }
+
+        /* ===== 4 HOUSES SCOREBOARD ===== */
+        .houses-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .house-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .house-card:nth-child(1) { animation-delay: 0.2s; }
+        .house-card:nth-child(2) { animation-delay: 0.3s; }
+        .house-card:nth-child(3) { animation-delay: 0.4s; }
+        .house-card:nth-child(4) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .house-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .house-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 4rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .house-white {
+            background: linear-gradient(135deg, #ffffff, #f5f5f5);
+            border: 3px solid #333;
+        }
+        .house-white .house-icon { color: #333; }
+
+        .house-marron {
+            background: linear-gradient(135deg, #800000, #660000);
+            border: 3px solid #ffd700;
+        }
+        .house-marron .house-icon { color: white; }
+
+        .house-blue {
+            background: linear-gradient(135deg, #0000ff, #0000cc);
+            border: 3px solid #ffd700;
+        }
+        .house-blue .house-icon { color: white; }
+
+        .house-yellow {
+            background: linear-gradient(135deg, #ffff00, #ffcc00);
+            border: 3px solid #333;
+        }
+        .house-yellow .house-icon { color: #333; }
+
+        .house-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0 10px;
+        }
+
+        .house-score {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #1e3c72;
+            line-height: 1;
+        }
+
+        .house-points {
+            color: #666;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        /* ===== LIVE NOW SECTION ===== */
+        .live-now {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            border-radius: 30px;
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 20px 40px rgba(255,68,68,0.3);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.95; }
+            100% { opacity: 1; }
+        }
+
+        .live-badge {
+            background: white;
+            color: #ff4444;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 2rem;
+            white-space: nowrap;
+        }
+
+        .live-info {
+            flex: 1;
+        }
+
+        .live-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .live-info p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .live-score {
+            font-size: 3rem;
+            font-weight: bold;
+            background: rgba(0,0,0,0.2);
+            padding: 10px 30px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        /* ===== VIDEO PLAYER ===== */
+        .video-container {
+            background: black;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 45%;
+            height: 0;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        /* ===== MATCH SCHEDULE ===== */
+        .schedule {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .schedule h2 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .match-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px;
+            border-bottom: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .match-card:hover {
+            background: #f8f9fa;
+            transform: translateX(10px);
+            border-radius: 15px;
+        }
+
+        .match-card:last-child {
+            border-bottom: none;
+        }
+
+        .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .match-teams span {
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .match-teams .vs {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .match-time {
+            background: #f0f7ff;
+            padding: 10px 25px;
+            border-radius: 50px;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .match-status {
+            background: #4cd137;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .match-status.upcoming {
+            background: #ffa502;
+        }
+
+        /* ===== TOURNAMENT BRACKET ===== */
+        .bracket {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .bracket h2 {
+            color: #1e3c72;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .bracket-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .round {
+            flex: 1;
+            text-align: center;
+        }
+
+        .round h3 {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.3rem;
+        }
+
+        .match-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .match-box:hover {
+            border-color: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        .match-box .team {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .match-box .score {
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        .final-box {
+            background: linear-gradient(135deg, #ffd700, #ffcc00);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .final-box .team {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .champion-box {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        /* ===== PHOTO GALLERY ===== */
+        .gallery {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .gallery h2 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* ===== LIVE CHAT ===== */
+        .chat {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+        }
+
+        .chat h2 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            background: white;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message strong {
+            color: #1e3c72;
+        }
+
+        .message small {
+            color: #666;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 4px rgba(30,60,114,0.1);
+        }
+
+        .chat-input button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(30,60,114,0.3);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .houses-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .live-now {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .match-card {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .match-teams {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .bracket-container {
+                flex-direction: column;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-input {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <div class="header">
+            <h1>⚽ EVEREST SPORTS FESTIVAL 2026</h1>
+            <p class="date">February 20 - March 5, 2026 | Alam Gena Stadium</p>
+            <div class="houses-badge">
+                <i class="fas fa-trophy"></i> 4 HOUSES BATTLE <i class="fas fa-trophy"></i>
+            </div>
+        </div>
+        
+        <!-- 4 HOUSES SCOREBOARD -->
+        <div class="houses-grid">
+            <!-- WHITE HOUSE -->
+            <div class="house-card">
+                <div class="house-icon house-white">🤍</div>
+                <div class="house-name" style="color: #333;">WHITE HOUSE</div>
+                <div class="house-score">12</div>
+                <div class="house-points">points</div>
+            </div>
+            
+            <!-- MARRON HOUSE -->
+            <div class="house-card">
+                <div class="house-icon house-marron">🤎</div>
+                <div class="house-name" style="color: #800000;">MARRON HOUSE</div>
+                <div class="house-score">15</div>
+                <div class="house-points">points</div>
+            </div>
+            
+            <!-- BLUE HOUSE -->
+            <div class="house-card">
+                <div class="house-icon house-blue">💙</div>
+                <div class="house-name" style="color: #0000ff;">BLUE HOUSE</div>
+                <div class="house-score">10</div>
+                <div class="house-points">points</div>
+            </div>
+            
+            <!-- YELLOW HOUSE -->
+            <div class="house-card">
+                <div class="house-icon house-yellow">💛</div>
+                <div class="house-name" style="color: #ffcc00;">YELLOW HOUSE</div>
+                <div class="house-score">8</div>
+                <div class="house-points">points</div>
+            </div>
+        </div>
+        
+        <!-- LIVE NOW SECTION -->
+        <div class="live-now">
+            <div class="live-badge">🔴 LIVE</div>
+            <div class="live-info">
+                <h2>Marron House vs Blue House</h2>
+                <p>Semi Final Match | Main Field</p>
+            </div>
+            <div class="live-score">2 - 1</div>
+        </div>
+        
+        <!-- VIDEO PLAYER (YouTube Live Ready) -->
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+            <div class="video-overlay">
+                <i class="fas fa-eye"></i> 234 watching
+            </div>
+        </div>
+        
+        <!-- MATCH SCHEDULE -->
+        <div class="schedule">
+            <h2><i class="fas fa-calendar-alt"></i> Today's Matches</h2>
+            
+            <div class="match-card">
+                <div class="match-teams">
+                    <span style="color: #800000;">MARRON</span>
+                    <span class="vs">VS</span>
+                    <span style="color: #0000ff;">BLUE</span>
+                </div>
+                <div class="match-time">3:00 PM</div>
+                <div class="match-status">LIVE NOW</div>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-teams">
+                    <span style="color: #333;">WHITE</span>
+                    <span class="vs">VS</span>
+                    <span style="color: #ffcc00;">YELLOW</span>
+                </div>
+                <div class="match-time">4:30 PM</div>
+                <div class="match-status upcoming">UP NEXT</div>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-teams">
+                    <span>WINNER SF1</span>
+                    <span class="vs">VS</span>
+                    <span>WINNER SF2</span>
+                </div>
+                <div class="match-time">6:00 PM</div>
+                <div class="match-status upcoming">FINALS</div>
+            </div>
+        </div>
+        
+        <!-- TOURNAMENT BRACKET -->
+        <div class="bracket">
+            <h2>🏆 Tournament Bracket</h2>
+            
+            <div class="bracket-container">
+                <!-- Semi Finals -->
+                <div class="round">
+                    <h3>Semi Finals</h3>
+                    <div class="match-box">
+                        <div class="team" style="color: #800000;">MARRON</div>
+                        <div class="team" style="color: #0000ff;">BLUE</div>
+                        <div class="score">2 - 1</div>
+                    </div>
+                    <div class="match-box">
+                        <div class="team" style="color: #333;">WHITE</div>
+                        <div class="team" style="color: #ffcc00;">YELLOW</div>
+                        <div class="score">-</div>
+                    </div>
+                </div>
+                
+                <!-- Final -->
+                <div class="round">
+                    <h3>Final</h3>
+                    <div class="final-box">
+                        <div class="team">MARRON</div>
+                        <div class="team">VS</div>
+                        <div class="team">TBD</div>
+                    </div>
+                </div>
+                
+                <!-- Champion -->
+                <div class="round">
+                    <h3>Champion</h3>
+                    <div class="champion-box">
+                        <div class="team">🏆 TBD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PHOTO GALLERY -->
+        <div class="gallery">
+            <h2><i class="fas fa-camera"></i> Match Highlights</h2>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018" alt="Match 1">
+                    <div class="gallery-overlay">
+                        <strong>Marron vs Blue</strong>
+                        <p>Goal celebration!</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974" alt="Match 2">
+                    <div class="gallery-overlay">
+                        <strong>White vs Yellow</strong>
+                        <p>Opening ceremony</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c" alt="Match 3">
+                    <div class="gallery-overlay">
+                        <strong>Fans cheering</strong>
+                        <p>Amazing atmosphere</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20" alt="Match 4">
+                    <div class="gallery-overlay">
+                        <strong>Winners</strong>
+                        <p>Trophy presentation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- LIVE CHAT -->
+        <div class="chat">
+            <h2><i class="fas fa-comments"></i> Live Chat</h2>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message">
+                    <strong>👤 Parent1:</strong> Go Marron House! 🎉
+                    <small>2 min ago</small>
+                </div>
+                <div class="message">
+                    <strong>👤 BlueFan:</strong> My son just scored! ⚽
+                    <small>5 min ago</small>
+                </div>
+                <div class="message">
+                    <strong>👤 WhiteHouse:</strong> Let's go WHITE! 🤍
+                    <small>8 min ago</small>
+                </div>
+                <div class="message">
+                    <strong>👤 Yellow12:</strong> Yellow House fighting! 💛
+                    <small>12 min ago</small>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" placeholder="Cheer for your house..." id="chatInput">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Send</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Simple chat function
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chat = document.getElementById('chatMessages');
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `<strong>👤 You:</strong> ${message} <small>${time}</small>`;
+                
+                chat.appendChild(messageDiv);
+                chat.scrollTop = chat.scrollHeight;
+                input.value = '';
+            }
+        }
+        
+        // Enter key to send
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Auto-refresh scores (simulated)
+        setInterval(() => {
+            console.log('🔄 Refreshing scores...');
+            // In future: fetch live scores from server
+        }, 30000);
+    </script>
+</body>
+</html>
