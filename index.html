@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Everest Youth Academy | Grade 11 & 12 Excellence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Everest Youth Academy | KG to Grade 12 Excellence</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,15 +16,34 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             overflow-x: hidden;
             background: #fafafa;
         }
 
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            --primary: #1e3c72;
+            --primary-dark: #122b4f;
+            --secondary: #2a5298;
+            --accent: #ffd700;
+            --text: #333;
+            --text-light: #666;
+            --light: #f8f9fa;
+            --white: #fff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 40px rgba(30,60,114,0.2);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
         /* ===== HEADER ===== */
         header {
-            background: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            background: var(--white);
+            box-shadow: var(--shadow);
             position: fixed;
             width: 100%;
             top: 0;
@@ -46,36 +65,44 @@
             padding: 1rem 5%;
         }
 
-        .logo {
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            border-radius: 10px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
+            color: white;
+            box-shadow: 0 5px 15px rgba(30,60,114,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .logo-text h1 {
-            font-size: 1.5rem;
-            color: #1e3c72;
+            font-size: 1.8rem;
+            color: var(--primary);
             line-height: 1.2;
         }
 
         .logo-text span {
-            font-size: 0.8rem;
-            color: #666;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: block;
         }
 
+        /* ===== NAVIGATION LINKS ===== */
         .nav-links {
             display: flex;
             list-style: none;
@@ -84,49 +111,70 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: var(--text);
             font-weight: 500;
-            transition: color 0.3s ease;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #1e3c72;
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a.active {
-            color: #1e3c72;
+            color: var(--primary);
             font-weight: 600;
-            border-bottom: 2px solid #1e3c72;
         }
 
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .btn-nav {
+            background: var(--gradient);
+            color: white !important;
+            padding: 0.8rem 1.5rem !important;
             border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
+        .btn-nav::after {
+            display: none !important;
         }
 
-        .btn-primary:hover {
+        .btn-nav:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(30,60,114,0.2);
+            box-shadow: 0 10px 20px rgba(30,60,114,0.3);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 1.8rem;
-            color: #1e3c72;
+            font-size: 2rem;
+            color: var(--primary);
             cursor: pointer;
+            z-index: 1001;
         }
 
         /* ===== HERO SECTION ===== */
@@ -137,7 +185,7 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            padding: 80px 5% 0;
+            padding: 100px 5% 50px;
         }
 
         .hero::before {
@@ -151,7 +199,7 @@
             background-repeat: no-repeat;
             background-position: bottom;
             background-size: cover;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         .hero-content {
@@ -162,40 +210,70 @@
             gap: 4rem;
             align-items: center;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .hero-text {
             color: white;
-            animation: fadeInUp 1s ease;
+            animation: fadeInLeft 1s ease;
         }
 
-        @keyframes fadeInUp {
+        @keyframes fadeInLeft {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateX(-50px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
 
         .hero-badge {
             background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
-            padding: 8px 20px;
+            padding: 0.8rem 2rem;
             border-radius: 50px;
             display: inline-block;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
             border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero-badge i {
+            margin-right: 5px;
+            color: var(--accent);
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-logo span {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--primary);
         }
 
         .hero h1 {
             font-size: 4rem;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .hero h1 span {
@@ -206,20 +284,25 @@
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             line-height: 1.8;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            margin-bottom: 2rem;
+            opacity: 0.95;
         }
 
         .hero-stats {
             display: flex;
             gap: 3rem;
-            margin: 40px 0;
+            margin: 3rem 0;
+            flex-wrap: wrap;
         }
 
         .stat-item {
             text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
         }
 
         .stat-number {
@@ -230,17 +313,18 @@
 
         .stat-label {
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .hero-image {
             animation: fadeInRight 1s ease;
+            position: relative;
         }
 
         @keyframes fadeInRight {
             from {
                 opacity: 0;
-                transform: translateX(30px);
+                transform: translateX(50px);
             }
             to {
                 opacity: 1;
@@ -250,9 +334,9 @@
 
         .hero-image img {
             width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            max-width: 600px;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
 
         .floating-card {
@@ -260,17 +344,75 @@
             bottom: -20px;
             left: -20px;
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1rem;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10px, -10px); }
         }
 
         .floating-card i {
             font-size: 2rem;
-            color: #1e3c72;
+            color: var(--primary);
+        }
+
+        .floating-card .card-text h4 {
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+
+        .floating-card .card-text p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
         /* ===== FEATURES SECTION ===== */
@@ -281,14 +423,14 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: #1e3c72;
+            color: var(--primary);
         }
 
         .section-subtitle {
             text-align: center;
-            color: #666;
+            color: var(--text-light);
             margin-bottom: 4rem;
             font-size: 1.2rem;
         }
@@ -297,47 +439,121 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .feature-card {
-            background: #f8f9fa;
-            padding: 2rem;
+            background: var(--light);
+            padding: 3rem 2rem;
             border-radius: 20px;
-            transition: all 0.3s ease;
             text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(30,60,114,0.1);
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 2rem;
         }
 
         .feature-icon i {
-            font-size: 2rem;
+            font-size: 3rem;
             color: white;
         }
 
         .feature-card h3 {
+            font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: #333;
+            color: var(--text);
         }
 
         .feature-card p {
-            color: #666;
-            line-height: 1.6;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* ===== QUICK LINKS SECTION ===== */
+        .quick-links {
+            padding: 4rem 5%;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .quick-links h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .link-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .link-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .link-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .link-card span {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .link-card small {
+            display: block;
+            margin-top: 0.5rem;
+            opacity: 0.8;
         }
 
         /* ===== CTA SECTION ===== */
@@ -364,25 +580,114 @@
             display: flex;
             gap: 1rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .cta .btn-primary {
-            background: white;
-            color: #1e3c72;
+        /* ===== FOOTER ===== */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 4rem 5% 2rem;
         }
 
-        .cta .btn-outline {
-            background: transparent;
-            border: 2px solid white;
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .footer-logo-text h3 {
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+
+        .footer-logo-text p {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
             color: white;
         }
 
-        .cta .btn-outline:hover {
-            background: white;
-            color: #1e3c72;
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #666;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(30,60,114,0.4);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1024px) {
             .hero h1 {
                 font-size: 3rem;
@@ -393,6 +698,14 @@
             }
             
             .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -413,22 +726,62 @@
                 padding: 2rem;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
                 z-index: 999;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
             }
             
             .nav-links.active {
                 display: flex;
             }
             
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 12px;
+                font-size: 1.2rem;
+            }
+            
+            .nav-links a i {
+                width: 30px;
+            }
+            
+            .btn-nav {
+                display: block;
+                text-align: center;
+            }
+            
             .hero-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 2rem;
             }
             
             .hero-stats {
                 justify-content: center;
             }
             
+            .hero-logo {
+                margin: 0 auto 2rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            .floating-card {
+                display: none;
+            }
+            
             .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .links-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -436,8 +789,40 @@
                 font-size: 2rem;
             }
             
-            .cta-buttons {
-                flex-direction: column;
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 span {
+                font-size: 1.5rem;
+            }
+            
+            .hero-stats {
+                gap: 1rem;
+            }
+            
+            .stat-item {
+                padding: 0.8rem 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -447,21 +832,22 @@
     <!-- HEADER -->
     <header>
         <nav>
-            <div class="logo">
+            <div class="logo-container">
                 <div class="logo-icon">E</div>
                 <div class="logo-text">
-                    <h1>Everest Youth Academy</h1>
-                    <span>Excellence in Education</span>
+                    <h1>Everest Youth</h1>
+                    <span>Academy | KG to Grade 12</span>
                 </div>
             </div>
             
             <ul class="nav-links" id="navLinks">
-                <li><a href="everest-home.html" class="active">Home</a></li>
-                <li><a href="everest-about.html">About</a></li>
-                <li><a href="#">Academics</a></li>
-                <li><a href="#">Teachers</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#" class="btn btn-primary">Student Login</a></li>
+                <li><a href="everest-home.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="everest-leaders.html"><i class="fas fa-crown"></i> Leadership</a></li>
+                <li><a href="#"><i class="fas fa-school"></i> Branches</a></li>
+                <li><a href="#"><i class="fas fa-book-open"></i> Academics</a></li>
+                <li><a href="everest-sports-festival.html"><i class="fas fa-futbol"></i> Sports Fest</a></li>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                <li><a href="#" class="btn-nav"><i class="fas fa-user-graduate"></i> Student Portal</a></li>
             </ul>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -474,9 +860,16 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <span class="hero-badge"><i class="fas fa-star"></i> Since 1995</span>
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i> Since 1995
+                </div>
+                
+                <div class="hero-logo">
+                    <span>🏔️</span>
+                </div>
+                
                 <h1>Everest Youth <span>Academy</span></h1>
-                <p>Empowering Grade 11 & 12 students with excellence in education, exam preparation, and digital learning tools for a brighter future.</p>
+                <p>Excellence in education from Kindergarten to Grade 12. Two branches serving the next generation of Ethiopian leaders.</p>
                 
                 <div class="hero-stats">
                     <div class="stat-item">
@@ -491,21 +884,26 @@
                         <span class="stat-number">95%</span>
                         <span class="stat-label">Pass Rate</span>
                     </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2</span>
+                        <span class="stat-label">Branches</span>
+                    </div>
                 </div>
                 
                 <div class="btn-group">
-                    <a href="#" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> For Students</a>
-                    <a href="#" class="btn btn-outline"><i class="fas fa-chalkboard-teacher"></i> For Teachers</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Explore Academics</a>
+                    <a href="everest-sports-festival.html" class="btn btn-outline"><i class="fas fa-futbol"></i> Sports Festival</a>
                 </div>
             </div>
             
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Everest Students">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Everest Students">
+                
                 <div class="floating-card">
                     <i class="fas fa-trophy"></i>
-                    <div>
-                        <strong>Top Performers</strong>
-                        <p>Grade 11 & 12 Excellence</p>
+                    <div class="card-text">
+                        <h4>Alam Gena & Kara</h4>
+                        <p>Two branches, one family</p>
                     </div>
                 </div>
             </div>
@@ -515,23 +913,23 @@
     <!-- FEATURES SECTION -->
     <section class="features">
         <h2 class="section-title">Why Choose Everest?</h2>
-        <p class="section-subtitle">Empowering the next generation of Ethiopian leaders</p>
+        <p class="section-subtitle">Building Ethiopia's future leaders with excellence and care</p>
         
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-book-open"></i>
+                    <i class="fas fa-graduation-cap"></i>
                 </div>
-                <h3>Exam Preparation</h3>
-                <p>Specialized program for Grade 11 & 12 with past papers, model answers, and study guides.</p>
+                <h3>Academic Excellence</h3>
+                <p>95% pass rate in national exams with dedicated teachers and comprehensive curriculum from KG to Grade 12.</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
+                    <i class="fas fa-users"></i>
                 </div>
                 <h3>Expert Teachers</h3>
-                <p>Dedicated teachers with years of experience preparing students for national exams.</p>
+                <p>30+ qualified teachers dedicated to nurturing every student's potential across both branches.</p>
             </div>
             
             <div class="feature-card">
@@ -539,24 +937,130 @@
                     <i class="fas fa-laptop"></i>
                 </div>
                 <h3>Digital Learning</h3>
-                <p>Online assignments, materials, and announcements for modern education.</p>
+                <p>Modern digital platform for Grade 11 & 12 with assignments, past papers, and exam preparation.</p>
             </div>
+        </div>
+    </section>
+    
+    <!-- QUICK LINKS SECTION -->
+    <section class="quick-links">
+        <h2><i class="fas fa-compass"></i> Explore Everest</h2>
+        
+        <div class="links-grid">
+            <a href="everest-leaders.html" class="link-card">
+                <i class="fas fa-crown"></i>
+                <span>Leadership</span>
+                <small>Mr. Getu & Mr. Zelalam</small>
+            </a>
+            
+            <a href="#" class="link-card">
+                <i class="fas fa-school"></i>
+                <span>Alam Gena</span>
+                <small>Main Branch (KG-12)</small>
+            </a>
+            
+            <a href="#" class="link-card">
+                <i class="fas fa-school"></i>
+                <span>Kara Branch</span>
+                <small>Primary School</small>
+            </a>
+            
+            <a href="everest-sports-festival.html" class="link-card">
+                <i class="fas fa-futbol"></i>
+                <span>Sports Festival</span>
+                <small>4 Houses Battle ⚽</small>
+            </a>
+            
+            <a href="#" class="link-card">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Water Day</span>
+                <small>Celebration & Awareness</small>
+            </a>
+            
+            <a href="#" class="link-card">
+                <i class="fas fa-drum"></i>
+                <span>Culture Day</span>
+                <small>Ethiopian Heritage</small>
+            </a>
+            
+            <a href="#" class="link-card">
+                <i class="fas fa-user-graduate"></i>
+                <span>Grade 11-12 Portal</span>
+                <small>Assignments & Exams</small>
+            </a>
+            
+            <a href="#" class="link-card">
+                <i class="fas fa-phone-alt"></i>
+                <span>Contact Us</span>
+                <small>Both Branches</small>
+            </a>
         </div>
     </section>
     
     <!-- CTA SECTION -->
     <section class="cta">
-        <h2>Ready to Excel?</h2>
-        <p>Join Everest Youth Academy and get access to our digital learning platform for Grade 11 & 12 students.</p>
+        <h2>Ready to Join the Everest Family?</h2>
+        <p>From Kindergarten to Grade 12, we prepare students for academic success and lifelong achievement.</p>
         <div class="cta-buttons">
-            <a href="#" class="btn btn-primary">Student Portal</a>
-            <a href="#" class="btn btn-outline">Teacher Login</a>
+            <a href="#" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Schedule Visit</a>
+            <a href="#" class="btn btn-outline"><i class="fas fa-download"></i> Download Brochure</a>
         </div>
     </section>
     
-    <!-- JAVASCRIPT -->
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">E</div>
+                    <div class="footer-logo-text">
+                        <h3>Everest Youth</h3>
+                        <p>Academy</p>
+                    </div>
+                </div>
+                <p style="color: #999; line-height: 1.8;">Excellence in education from KG to Grade 12. Two branches serving Addis Ababa.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="everest-home.html">Home</a></li>
+                    <li><a href="everest-leaders.html">Leadership</a></li>
+                    <li><a href="#">Academics</a></li>
+                    <li><a href="everest-sports-festival.html">Sports Festival</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Branches</h4>
+                <ul>
+                    <li><a href="#">Alam Gena (Main)</a></li>
+                    <li><a href="#">Kara (Primary)</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +251 --- --- ---</li>
+                    <li><i class="fas fa-envelope"></i> info@everest.edu.et</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Addis Ababa</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2026 Everest Youth Academy. All rights reserved. | KG to Grade 12 Excellence</p>
+        </div>
+    </footer>
+    
+    <!-- BACK TO TOP -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
     <script>
-        // Mobile menu
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         
@@ -570,7 +1074,27 @@
             }
         });
         
-        // Smooth scroll
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            });
+        });
+        
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -581,6 +1105,5 @@
             });
         });
     </script>
-    
 </body>
 </html>
