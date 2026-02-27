@@ -526,175 +526,196 @@
         </div>
     </div>
     
-    <script>
-        // ===== ADMIN PASSWORD (CHANGE THIS!) =====
-        const ADMIN_PASSWORD = 'everest2026';
+     <script>
+    // ===== CONFIGURATION =====
+    const API_URL = 'https://YOUR-BACKEND-URL.railway.app'; // ← CHANGE THIS AFTER DEPLOYMENT!
+    const ADMIN_PASSWORD = 'Totiandlema'; !
+    
+    // ===== STATE =====
+    let scores = {
+        white: 12,
+        marron: 15,
+        blue: 10,
+        yellow: 8
+    };
+    
+    let matches = {
+        match1: { team1: 'MARRON', team2: 'BLUE', score1: 2, score2: 1, status: 'live' },
+        match2: { team1: 'WHITE', team2: 'YELLOW', score1: 0, score2: 0, status: 'upcoming' },
+        match3: { team1: 'WINNER SF1', team2: 'WINNER SF2', score1: 0, score2: 0, status: 'finals' }
+    };
+    
+    // ===== LOGIN =====
+    function login() {
+        const password = document.getElementById('password').value;
         
-        // ===== SCORES DATA =====
-        let scores = {
-            white: 12,
-            marron: 15,
-            blue: 10,
-            yellow: 8
+        if (password === ADMIN_PASSWORD) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadFromServer();
+        } else {
+            document.getElementById('loginError').textContent = '❌ Incorrect password';
+        }
+    }
+    
+    function logout() {
+        document.getElementById('loginScreen').style.display = 'block';
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('password').value = '';
+        document.getElementById('loginError').textContent = '';
+    }
+    
+    // ===== LOAD DATA FROM SERVER =====
+    async function loadFromServer() {
+        try {
+            const response = await fetch(`${API_URL}/api/sports-data`);
+            const data = await response.json();
+            
+            scores = data.scores;
+            matches = data.matches;
+            
+            // Update UI
+            updateScoreDisplay();
+            updateMatchDisplay();
+            
+            showStatus('✅ Loaded latest data from server');
+        } catch (error) {
+            console.error('Failed to load from server:', error);
+            showStatus('⚠️ Using local data - server offline', 3000);
+            loadFromLocal();
+        }
+    }
+    
+    // ===== UPDATE SCORES =====
+    function updateScore(house, change) {
+        scores[house] = Math.max(0, scores[house] + change);
+        updateScoreDisplay();
+    }
+    
+    function updateScoreDisplay() {
+        document.getElementById('whiteScore').textContent = scores.white;
+        document.getElementById('marronScore').textContent = scores.marron;
+        document.getElementById('blueScore').textContent = scores.blue;
+        document.getElementById('yellowScore').textContent = scores.yellow;
+    }
+    
+    // ===== UPDATE MATCHES =====
+    function updateMatch(matchNum) {
+        const score1 = document.getElementById(`match${matchNum}Score1`).value;
+        const score2 = document.getElementById(`match${matchNum}Score2`).value;
+        const status = document.getElementById(`match${matchNum}Status`).value;
+        
+        matches[`match${matchNum}`] = {
+            ...matches[`match${matchNum}`],
+            score1: parseInt(score1),
+            score2: parseInt(score2),
+            status: status
         };
         
-        let matches = {
-            match1: { score1: 2, score2: 1, status: 'live' },
-            match2: { score1: 0, score2: 0, status: 'upcoming' },
-            match3: { score1: 0, score2: 0, status: 'upcoming' }
-        };
-        
-        // ===== LOGIN FUNCTION =====
-        function login() {
-            const password = document.getElementById('password').value;
+        updateMatchDisplay();
+    }
+    
+    function updateMatchDisplay() {
+        // Update match cards
+        for (let i = 1; i <= 3; i++) {
+            const match = matches[`match${i}`];
+            const card = document.querySelectorAll('.match-card')[i-1];
             
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('adminDashboard').style.display = 'block';
-                loadScores();
-            } else {
-                document.getElementById('loginError').textContent = '❌ Incorrect password';
+            card.classList.remove('live');
+            if (match.status === 'live') {
+                card.classList.add('live');
             }
         }
-        
-        function logout() {
-            document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('adminDashboard').style.display = 'none';
-            document.getElementById('password').value = '';
-            document.getElementById('loginError').textContent = '';
-        }
-        
-        // ===== SCORE CONTROL =====
-        function updateScore(house, change) {
-            scores[house] = Math.max(0, scores[house] + change);
-            document.getElementById(house + 'Score').textContent = scores[house];
-            showSaveStatus();
-            
-            // Update the live website (via localStorage for now)
-            localStorage.setItem('everestScores', JSON.stringify(scores));
-        }
-        
-        // ===== MATCH CONTROL =====
-        function updateMatch(matchNum) {
-            const score1 = document.getElementById(`match${matchNum}Score1`).value;
-            const score2 = document.getElementById(`match${matchNum}Score2`).value;
-            const status = document.getElementById(`match${matchNum}Status`).value;
-            
-            matches[`match${matchNum}`] = {
-                score1: parseInt(score1),
-                score2: parseInt(score2),
-                status: status
-            };
-            
-            // Update live status indicator
-            const matchCards = document.querySelectorAll('.match-card');
-            matchCards[matchNum-1].classList.remove('live');
-            if (status === 'live') {
-                matchCards[matchNum-1].classList.add('live');
-            }
-            
-            localStorage.setItem('everestMatches', JSON.stringify(matches));
-            showSaveStatus();
-        }
-        
-        // ===== LOAD SAVED SCORES =====
-        function loadScores() {
-            // Load from localStorage if available
-            const savedScores = localStorage.getItem('everestScores');
-            if (savedScores) {
-                scores = JSON.parse(savedScores);
-                document.getElementById('whiteScore').textContent = scores.white;
-                document.getElementById('marronScore').textContent = scores.marron;
-                document.getElementById('blueScore').textContent = scores.blue;
-                document.getElementById('yellowScore').textContent = scores.yellow;
-            }
-            
-            const savedMatches = localStorage.getItem('everestMatches');
-            if (savedMatches) {
-                matches = JSON.parse(savedMatches);
-                
-                // Update match inputs
-                for (let i = 1; i <= 3; i++) {
-                    document.getElementById(`match${i}Score1`).value = matches[`match${i}`].score1;
-                    document.getElementById(`match${i}Score2`).value = matches[`match${i}`].score2;
-                    document.getElementById(`match${i}Status`).value = matches[`match${i}`].status;
-                }
-            }
-        }
-        
-        // ===== SAVE FUNCTIONS =====
-        function saveToLocal() {
-            localStorage.setItem('everestScores', JSON.stringify(scores));
-            localStorage.setItem('everestMatches', JSON.stringify(matches));
-            showSaveStatus('Saved to browser!');
-        }
-        
-        function saveToCloud() {
-            // This uses JSONBin.io - free service
-            const data = {
-                scores: scores,
-                matches: matches,
-                lastUpdated: new Date().toISOString()
-            };
-            
-            // You'll need to sign up at jsonbin.io and get your API key
-            fetch('https://api.jsonbin.io/v3/b/YOUR_BIN_ID', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': '$2a$10$YOUR_API_KEY'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                showSaveStatus('✅ Saved to cloud!');
-            })
-            .catch(error => {
-                console.error('Cloud save failed:', error);
-                showSaveStatus('❌ Cloud save failed', 3000);
+    }
+    
+    // ===== SAVE TO SERVER =====
+    async function saveToServer() {
+        try {
+            // Save scores
+            await fetch(`${API_URL}/api/update-scores`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    password: ADMIN_PASSWORD,
+                    scores: scores
+                })
             });
+            
+            // Save matches
+            await fetch(`${API_URL}/api/update-matches`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    password: ADMIN_PASSWORD,
+                    matches: matches
+                })
+            });
+            
+            showStatus('✅ Saved to cloud server!');
+        } catch (error) {
+            console.error('Server save failed:', error);
+            showStatus('❌ Server save failed - using local only', 3000);
+            saveToLocal();
+        }
+    }
+    
+    // ===== LOCAL STORAGE FALLBACK =====
+    function saveToLocal() {
+        localStorage.setItem('everestScores', JSON.stringify(scores));
+        localStorage.setItem('everestMatches', JSON.stringify(matches));
+        showStatus('💾 Saved to browser (local only)');
+    }
+    
+    function loadFromLocal() {
+        const savedScores = localStorage.getItem('everestScores');
+        const savedMatches = localStorage.getItem('everestMatches');
+        
+        if (savedScores) {
+            scores = JSON.parse(savedScores);
+        }
+        if (savedMatches) {
+            matches = JSON.parse(savedMatches);
         }
         
-        function resetScores() {
-            if (confirm('Reset all scores to default?')) {
-                scores = { white: 12, marron: 15, blue: 10, yellow: 8 };
-                matches = {
-                    match1: { score1: 2, score2: 1, status: 'live' },
-                    match2: { score1: 0, score2: 0, status: 'upcoming' },
-                    match3: { score1: 0, score2: 0, status: 'upcoming' }
-                };
+        updateScoreDisplay();
+    }
+    
+    // ===== RESET DATA =====
+    async function resetData() {
+        if (confirm('⚠️ Reset all scores to default?')) {
+            try {
+                await fetch(`${API_URL}/api/reset-data`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        password: ADMIN_PASSWORD
+                    })
+                });
                 
-                // Update display
-                document.getElementById('whiteScore').textContent = scores.white;
-                document.getElementById('marronScore').textContent = scores.marron;
-                document.getElementById('blueScore').textContent = scores.blue;
-                document.getElementById('yellowScore').textContent = scores.yellow;
-                
-                for (let i = 1; i <= 3; i++) {
-                    document.getElementById(`match${i}Score1`).value = matches[`match${i}`].score1;
-                    document.getElementById(`match${i}Score2`).value = matches[`match${i}`].score2;
-                    document.getElementById(`match${i}Status`).value = matches[`match${i}`].status;
-                }
-                
-                saveToLocal();
+                await loadFromServer();
+                showStatus('✅ Data reset to default');
+            } catch (error) {
+                console.error('Reset failed:', error);
+                showStatus('❌ Reset failed', 3000);
             }
         }
+    }
+    
+    // ===== UI HELPERS =====
+    function showStatus(message, duration = 2000) {
+        const status = document.getElementById('saveStatus');
+        status.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+        status.style.display = 'block';
         
-        function showSaveStatus(message = 'Changes saved!', duration = 2000) {
-            const status = document.getElementById('saveStatus');
-            status.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-            status.style.display = 'block';
-            
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, duration);
-        }
-        
-        // Auto-save when closing
-        window.addEventListener('beforeunload', function() {
-            saveToLocal();
-        });
-    </script>
+        setTimeout(() => {
+            status.style.display = 'none';
+        }, duration);
+    }
+    
+    // Auto-save when closing
+    window.addEventListener('beforeunload', function() {
+        saveToLocal(); // Local backup
+    });
+</script>
 </body>
 </html>
