@@ -832,6 +832,35 @@
             console.log('🔄 Refreshing scores...');
             // In future: fetch live scores from server
         }, 30000);
+    // ===== LOAD LIVE SCORES FROM ADMIN =====
+function loadLiveScores() {
+    // Load from localStorage (what admin saves)
+    const savedScores = localStorage.getItem('everestScores');
+    if (savedScores) {
+        const scores = JSON.parse(savedScores);
+        
+        // Update house scores
+        document.querySelector('.house-white .house-score').textContent = scores.white;
+        document.querySelector('.house-marron .house-score').textContent = scores.marron;
+        document.querySelector('.house-blue .house-score').textContent = scores.blue;
+        document.querySelector('.house-yellow .house-score').textContent = scores.yellow;
+    }
+    
+    const savedMatches = localStorage.getItem('everestMatches');
+    if (savedMatches) {
+        const matches = JSON.parse(savedMatches);
+        
+        // Update match displays
+        // You'll need to add IDs to your match elements
+        updateMatchDisplay(matches);
+    }
+}
+
+// Auto-refresh every 30 seconds
+setInterval(loadLiveScores, 30000);
+
+// Load on page start
+document.addEventListener('DOMContentLoaded', loadLiveScores);
     </script>
 </body>
 </html>
