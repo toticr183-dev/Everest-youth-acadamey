@@ -1,6 +1,6 @@
 // ===========================================
-// EVEREST SPORTS FESTIVAL - LIVE BACKEND SERVER
-// Deploy on Railway for 24/7 operation
+// EVEREST YOUTH ACADEMY - COMPLETE BACKEND
+// LIVE ON RENDER - ALL ROUTES WORKING!
 // ===========================================
 
 const express = require('express');
@@ -10,11 +10,11 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// ========== MIDDLEWARE ==========
 app.use(cors());
 app.use(express.json());
 
-// Data file path
+// ========== DATA STORAGE ==========
 const DATA_FILE = path.join(__dirname, 'sports-data.json');
 
 // Default data
@@ -33,7 +33,7 @@ const defaultData = {
     lastUpdated: new Date().toISOString()
 };
 
-// Load data from file
+// Load data function
 function loadData() {
     try {
         if (fs.existsSync(DATA_FILE)) {
@@ -46,35 +46,53 @@ function loadData() {
     return defaultData;
 }
 
-// Save data to file
+// Save data function
 function saveData(data) {
     data.lastUpdated = new Date().toISOString();
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
     console.log('✅ Data saved:', new Date().toLocaleTimeString());
 }
 
-// ========== API ROUTES ==========
-
-// Health check
-app.get('/health', (req, res) => {
-    res.json({ 
-        status: 'healthy', 
-        server: 'Everest Sports Festival Live',
-        time: new Date().toISOString()
+// ========== ROOT ROUTE - THIS FIXES THE 404! ==========
+app.get('/', (req, res) => {
+    res.json({
+        name: 'Everest Youth Academy API',
+        status: 'running',
+        message: 'Welcome to Everest Youth Academy Backend!',
+        endpoints: {
+            health: '/health',
+            sportsData: '/api/sports-data',
+            website: 'https://toticr183-dev.github.io/Everest-youth-acadamey/'
+        },
+        server: 'Render',
+        timestamp: new Date().toISOString()
     });
 });
 
-// GET current scores and matches (PUBLIC)
+// ========== HEALTH CHECK ==========
+app.get('/health', (req, res) => {
+    const data = loadData();
+    res.json({
+        status: 'healthy',
+        server: 'Everest Youth Academy Live',
+        appointments: data.scores || 'Sports data ready',
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ========== GET SPORTS DATA ==========
 app.get('/api/sports-data', (req, res) => {
     const data = loadData();
     res.json(data);
 });
 
-// UPDATE scores (ADMIN ONLY - with password)
+// ========== UPDATE SCORES ==========
 app.post('/api/update-scores', (req, res) => {
     const { password, scores } = req.body;
     
-    // Simple password protection (CHANGE THIS!)
+    // Simple password (CHANGE THIS!)
     if (password !== 'everest2026') {
         return res.status(401).json({ error: 'Unauthorized' });
     }
@@ -86,7 +104,7 @@ app.post('/api/update-scores', (req, res) => {
     res.json({ success: true, message: 'Scores updated', data: data });
 });
 
-// UPDATE matches (ADMIN ONLY)
+// ========== UPDATE MATCHES ==========
 app.post('/api/update-matches', (req, res) => {
     const { password, matches } = req.body;
     
@@ -101,7 +119,7 @@ app.post('/api/update-matches', (req, res) => {
     res.json({ success: true, message: 'Matches updated', data: data });
 });
 
-// UPDATE specific match (ADMIN ONLY)
+// ========== UPDATE SINGLE MATCH ==========
 app.post('/api/update-match/:matchId', (req, res) => {
     const { password } = req.body;
     const matchId = req.params.matchId;
@@ -117,7 +135,7 @@ app.post('/api/update-match/:matchId', (req, res) => {
     res.json({ success: true, message: `Match ${matchId} updated` });
 });
 
-// RESET all data (ADMIN ONLY)
+// ========== RESET DATA ==========
 app.post('/api/reset-data', (req, res) => {
     const { password } = req.body;
     
@@ -129,13 +147,25 @@ app.post('/api/reset-data', (req, res) => {
     res.json({ success: true, message: 'Data reset to default' });
 });
 
-// Start server
+// ========== 404 HANDLER FOR ANY OTHER ROUTES ==========
+app.use((req, res) => {
+    res.status(404).json({
+        error: 'Route not found',
+        message: 'The requested endpoint does not exist',
+        available: ['/', '/health', '/api/sports-data']
+    });
+});
+
+// ========== START SERVER ==========
 app.listen(PORT, '0.0.0.0', () => {
-    console.log('\n' + '='.repeat(50));
-    console.log('🚀 EVEREST SPORTS FESTIVAL LIVE SERVER');
-    console.log('='.repeat(50));
+    console.log('\n' + '='.repeat(60));
+    console.log('🚀 EVEREST YOUTH ACADEMY BACKEND RUNNING!');
+    console.log('='.repeat(60));
     console.log(`📍 Port: ${PORT}`);
-    console.log(`📍 Public API: http://localhost:${PORT}/api/sports-data`);
-    console.log(`📍 Admin updates: POST /api/update-scores`);
-    console.log('='.repeat(50) + '\n');
+    console.log(`📍 Root: https://everest-youth-academy.onrender.com/`);
+    console.log(`📍 Health: /health`);
+    console.log(`📍 Sports Data: /api/sports-data`);
+    console.log('='.repeat(60));
+    console.log('✅ Server ready for requests!');
+    console.log('='.repeat(60) + '\n');
 });
