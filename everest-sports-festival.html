@@ -2,46 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Everest Sports Festival 2026 | 4 Houses Battle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🏆 Everest Sports Festival 2026 | 4 Houses × 4 Grades</title>
     
-    <!-- Font Awesome -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts for extra beauty -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: cover;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ===== HEADER ===== */
-        .header {
-            background: white;
-            border-radius: 30px;
+        /* ===== HEADER WITH GLASS EFFECT ===== */
+        .hero-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
             padding: 40px;
             margin-bottom: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            animation: slideDown 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            animation: slideDown 1s ease;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-50px);
             }
             to {
                 opacity: 1;
@@ -49,134 +76,95 @@
             }
         }
 
-        .header h1 {
-            font-size: 3.5rem;
-            color: #1e3c72;
+        .hero-header::before {
+            content: '⚽🏀🏈⚾';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 120px;
+            opacity: 0.03;
+            transform: rotate(15deg);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .hero-header h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
-        }
-
-        .header .date {
-            color: #666;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-        }
-
-        .houses-badge {
+            letter-spacing: 2px;
+            position: relative;
             display: inline-block;
-            background: linear-gradient(135deg, #ffd700, #ffcc00);
-            color: #333;
-            padding: 12px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            margin-top: 20px;
-            box-shadow: 0 10px 20px rgba(255,215,0,0.3);
         }
 
-        /* ===== 4 HOUSES SCOREBOARD ===== */
-        .houses-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-bottom: 40px;
+        .hero-header h1::after {
+            content: '🏆';
+            position: absolute;
+            top: -20px;
+            right: -40px;
+            font-size: 3rem;
+            animation: bounce 2s infinite;
         }
 
-        .house-card {
-            background: white;
-            border-radius: 30px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease forwards;
-            opacity: 0;
-            transform: translateY(30px);
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .house-card:nth-child(1) { animation-delay: 0.2s; }
-        .house-card:nth-child(2) { animation-delay: 0.3s; }
-        .house-card:nth-child(3) { animation-delay: 0.4s; }
-        .house-card:nth-child(4) { animation-delay: 0.5s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .house-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-        }
-
-        .house-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 4rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .house-white {
-            background: linear-gradient(135deg, #ffffff, #f5f5f5);
-            border: 3px solid #333;
-        }
-        .house-white .house-icon { color: #333; }
-
-        .house-marron {
-            background: linear-gradient(135deg, #800000, #660000);
-            border: 3px solid #ffd700;
-        }
-        .house-marron .house-icon { color: white; }
-
-        .house-blue {
-            background: linear-gradient(135deg, #0000ff, #0000cc);
-            border: 3px solid #ffd700;
-        }
-        .house-blue .house-icon { color: white; }
-
-        .house-yellow {
-            background: linear-gradient(135deg, #ffff00, #ffcc00);
-            border: 3px solid #333;
-        }
-        .house-yellow .house-icon { color: #333; }
-
-        .house-name {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 15px 0 10px;
-        }
-
-        .house-score {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #1e3c72;
-            line-height: 1;
-        }
-
-        .house-points {
+        .hero-header .subtitle {
+            font-size: 1.5rem;
             color: #666;
-            margin-top: 5px;
-            font-size: 1rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(30,60,114,0.3);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 10px 20px rgba(30,60,114,0.3); }
+            50% { box-shadow: 0 20px 30px rgba(30,60,114,0.5); }
+        }
+
+        .badge i {
+            font-size: 1.2rem;
         }
 
         /* ===== LIVE NOW SECTION ===== */
         .live-now {
             background: linear-gradient(135deg, #ff4444, #cc0000);
-            border-radius: 30px;
-            padding: 30px 40px;
+            border-radius: 40px;
+            padding: 40px;
             margin-bottom: 40px;
             color: white;
             display: flex;
             align-items: center;
             gap: 40px;
+            position: relative;
+            overflow: hidden;
             animation: pulse 2s infinite;
-            box-shadow: 0 20px 40px rgba(255,68,68,0.3);
+            box-shadow: 0 30px 50px rgba(255,68,68,0.3);
         }
 
         @keyframes pulse {
@@ -185,14 +173,31 @@
             100% { opacity: 1; }
         }
 
+        .live-now::before {
+            content: '🔴🔴🔴';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 150px;
+            opacity: 0.1;
+            transform: rotate(20deg);
+        }
+
         .live-badge {
             background: white;
             color: #ff4444;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 2rem;
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 2.5rem;
             white-space: nowrap;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: flash 1s infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
         .live-info {
@@ -200,273 +205,412 @@
         }
 
         .live-info h2 {
-            font-size: 2.2rem;
+            font-size: 3rem;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .live-info p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            opacity: 0.95;
         }
 
         .live-score {
-            font-size: 3rem;
-            font-weight: bold;
+            font-size: 5rem;
+            font-weight: 800;
             background: rgba(0,0,0,0.2);
-            padding: 10px 30px;
-            border-radius: 50px;
+            padding: 20px 50px;
+            border-radius: 80px;
             white-space: nowrap;
+            border: 3px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+            animation: scorePulse 1.5s infinite;
         }
 
-        /* ===== VIDEO PLAYER ===== */
-        .video-container {
-            background: black;
-            border-radius: 30px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            position: relative;
-            padding-bottom: 45%;
-            height: 0;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        @keyframes scorePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* ===== GRADE TABS ===== */
+        .grade-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .grade-tab {
+            padding: 15px 35px;
             border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(5px);
+            color: #333;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            flex: 0 1 auto;
+            min-width: 120px;
         }
 
-        .video-overlay {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.7);
+        .grade-tab.active {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            z-index: 10;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 30px rgba(30,60,114,0.3);
+            border-color: #ffd700;
         }
 
-        /* ===== MATCH SCHEDULE ===== */
-        .schedule {
-            background: white;
+        .grade-tab:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+        }
+
+        /* ===== HOUSES GRID ===== */
+        .houses-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+            perspective: 1000px;
+        }
+
+        .house-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
             border-radius: 30px;
+            padding: 30px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            animation: cardAppear 0.8s ease backwards;
+            transform-style: preserve-3d;
+        }
+
+        .house-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.2);
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .house-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .house-card:hover::before {
+            opacity: 1;
+        }
+
+        .house-maroon { border-top: 8px solid #800000; }
+        .house-blue { border-top: 8px solid #0000ff; }
+        .house-yellow { border-top: 8px solid #ffcc00; }
+        .house-white { border-top: 8px solid #333; background: rgba(245,245,245,0.95); }
+
+        .house-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .house-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .house-icon {
+            font-size: 3.5rem;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .score-display {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .score-number {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            text-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .score-label {
+            font-size: 1rem;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .wins-badge {
+            background: rgba(255,215,0,0.2);
+            padding: 12px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 600;
+            color: #1e3c72;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,215,0,0.3);
+            margin-top: 15px;
+        }
+
+        .wins-badge i {
+            color: #ffd700;
+            margin-right: 8px;
+            animation: starTwinkle 1.5s infinite;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        /* ===== CURRENT MATCH CARD ===== */
+        .match-showcase {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
             padding: 40px;
             margin-bottom: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        .schedule h2 {
-            color: #1e3c72;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
+        .match-showcase::before {
+            content: '⚽';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            font-size: 200px;
+            opacity: 0.03;
+            transform: rotate(10deg);
         }
 
-        .match-card {
+        .match-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 25px;
-            border-bottom: 2px solid #f0f0f0;
-            transition: all 0.3s ease;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px dashed #e0e0e0;
         }
 
-        .match-card:hover {
-            background: #f8f9fa;
-            transform: translateX(10px);
-            border-radius: 15px;
+        .match-header h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            font-weight: 700;
         }
 
-        .match-card:last-child {
-            border-bottom: none;
+        .match-status-badge {
+            padding: 15px 35px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            box-shadow: 0 10px 20px rgba(30,60,114,0.3);
         }
 
         .match-teams {
             display: flex;
+            justify-content: space-around;
             align-items: center;
-            gap: 30px;
-            font-size: 1.5rem;
-            font-weight: bold;
+            margin: 50px 0;
         }
 
-        .match-teams span {
-            min-width: 120px;
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+
+        .team-icon {
+            font-size: 6rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            animation: teamFloat 3s ease-in-out infinite;
+        }
+
+        .team-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .team-score {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .versus {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ff4444;
+            background: white;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+            margin: 0 20px;
+        }
+
+        @keyframes teamFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ===== TROPHY GALLERY ===== */
+        .trophy-gallery {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .trophy-gallery h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 40px;
             text-align: center;
         }
 
-        .match-teams .vs {
-            color: #666;
-            font-size: 1.2rem;
+        .trophy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
         }
 
-        .match-time {
-            background: #f0f7ff;
-            padding: 10px 25px;
-            border-radius: 50px;
+        .trophy-card {
+            background: linear-gradient(135deg, #ffd700, #ffcc00);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+        }
+
+        .trophy-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 30px 50px rgba(255,215,0,0.4);
+        }
+
+        .trophy-card::before {
+            content: '🏆';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.2;
+            transform: rotate(20deg);
+        }
+
+        .trophy-card h3 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .trophy-icon {
+            font-size: 5rem;
+            margin: 20px 0;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            animation: trophyGlow 2s infinite;
+        }
+
+        @keyframes trophyGlow {
+            0%, 100% { filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
+            50% { filter: drop-shadow(0 20px 30px rgba(255,215,0,0.5)); }
+        }
+
+        .winner-name {
+            font-size: 2rem;
+            font-weight: 800;
             color: #1e3c72;
+            margin: 15px 0;
+        }
+
+        .winner-badge {
+            background: #1e3c72;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
             font-weight: 600;
         }
 
-        .match-status {
+        /* ===== LIVE CHAT SECTION ===== */
+        .chat-section {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .chat-header h2 {
+            font-size: 2rem;
+            color: #1e3c72;
+        }
+
+        .online-count {
             background: #4cd137;
             color: white;
             padding: 8px 20px;
             border-radius: 50px;
-            font-size: 1rem;
             font-weight: 600;
-        }
-
-        .match-status.upcoming {
-            background: #ffa502;
-        }
-
-        /* ===== TOURNAMENT BRACKET ===== */
-        .bracket {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 40px;
-        }
-
-        .bracket h2 {
-            color: #1e3c72;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            text-align: center;
-        }
-
-        .bracket-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .round {
-            flex: 1;
-            text-align: center;
-        }
-
-        .round h3 {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.3rem;
-        }
-
-        .match-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .match-box:hover {
-            border-color: #1e3c72;
-            transform: scale(1.05);
-        }
-
-        .match-box .team {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 5px 0;
-        }
-
-        .match-box .score {
-            color: #1e3c72;
-            font-weight: bold;
-        }
-
-        .final-box {
-            background: linear-gradient(135deg, #ffd700, #ffcc00);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .final-box .team {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .champion-box {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        /* ===== PHOTO GALLERY ===== */
-        .gallery {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 40px;
-        }
-
-        .gallery h2 {
-            color: #1e3c72;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            color: white;
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        /* ===== LIVE CHAT ===== */
-        .chat {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-        }
-
-        .chat h2 {
-            color: #1e3c72;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
         }
 
         .chat-messages {
@@ -474,31 +618,38 @@
             overflow-y: auto;
             background: #f8f9fa;
             padding: 20px;
-            border-radius: 20px;
+            border-radius: 30px;
             margin-bottom: 20px;
         }
 
         .message {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 10px;
             background: white;
-            animation: fadeIn 0.3s ease;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            animation: messageSlide 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .message strong {
             color: #1e3c72;
+            margin-right: 10px;
         }
 
         .message small {
-            color: #666;
+            color: #999;
             font-size: 0.8rem;
-            margin-left: 10px;
         }
 
         .chat-input {
@@ -508,9 +659,9 @@
 
         .chat-input input {
             flex: 1;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
+            padding: 20px 25px;
+            border: 3px solid #e0e0e0;
+            border-radius: 60px;
             font-size: 1.1rem;
             transition: all 0.3s ease;
         }
@@ -518,7 +669,7 @@
         .chat-input input:focus {
             outline: none;
             border-color: #1e3c72;
-            box-shadow: 0 0 0 4px rgba(30,60,114,0.1);
+            box-shadow: 0 0 0 5px rgba(30,60,114,0.1);
         }
 
         .chat-input button {
@@ -526,16 +677,60 @@
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .chat-input button:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(30,60,114,0.3);
+            box-shadow: 0 15px 25px rgba(30,60,114,0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+        }
+
+        .footer i {
+            color: #ff4444;
+            animation: heartBeat 1s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+
+        /* ===== LOADING ANIMATION ===== */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255,255,255,0.3);
+            border-top-color: #1e3c72;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -544,39 +739,59 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .gallery-grid {
+            .trophy-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-header h1 {
+                font-size: 3rem;
             }
         }
 
         @media (max-width: 768px) {
-            .header h1 {
+            .hero-header h1 {
                 font-size: 2.5rem;
             }
             
             .live-now {
                 flex-direction: column;
                 text-align: center;
-                gap: 20px;
+                padding: 30px;
             }
             
-            .match-card {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+            .live-badge {
+                font-size: 1.8rem;
+                padding: 15px 30px;
+            }
+            
+            .live-score {
+                font-size: 3rem;
+                padding: 15px 30px;
+            }
+            
+            .houses-grid {
+                grid-template-columns: 1fr;
             }
             
             .match-teams {
                 flex-direction: column;
-                gap: 10px;
+                gap: 30px;
             }
             
-            .bracket-container {
+            .versus {
+                margin: 20px 0;
+            }
+            
+            .trophy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .grade-tabs {
                 flex-direction: column;
             }
             
-            .gallery-grid {
-                grid-template-columns: 1fr;
+            .grade-tab {
+                width: 100%;
             }
             
             .chat-input {
@@ -588,230 +803,288 @@
 <body>
     <div class="container">
         
-        <!-- HEADER -->
-        <div class="header">
-            <h1>⚽ EVEREST SPORTS FESTIVAL 2026</h1>
-            <p class="date">February 20 - March 5, 2026 | Alam Gena Stadium</p>
-            <div class="houses-badge">
-                <i class="fas fa-trophy"></i> 4 HOUSES BATTLE <i class="fas fa-trophy"></i>
-            </div>
+        <!-- LOADING STATE -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="loader"></div>
         </div>
         
-        <!-- 4 HOUSES SCOREBOARD -->
-        <div class="houses-grid">
-            <!-- WHITE HOUSE -->
-            <div class="house-card">
-                <div class="house-icon house-white">⚽️</div>
-                <div class="house-name" style="color: #333;">WHITE HOUSE</div>
-                <div class="house-score">12</div>
-                <div class="house-points">points</div>
-            </div>
+        <!-- MAIN CONTENT -->
+        <div id="mainContent">
             
-            <!-- MARRON HOUSE -->
-            <div class="house-card">
-                <div class="house-icon house-marron">⚽️</div>
-                <div class="house-name" style="color: #800000;">MARRON HOUSE</div>
-                <div class="house-score">15</div>
-                <div class="house-points">points</div>
-            </div>
-            
-            <!-- BLUE HOUSE -->
-            <div class="house-card">
-                <div class="house-icon house-blue">⚽️</div>
-                <div class="house-name" style="color: #0000ff;">BLUE HOUSE</div>
-                <div class="house-score">10</div>
-                <div class="house-points">points</div>
-            </div>
-            
-            <!-- YELLOW HOUSE -->
-            <div class="house-card">
-                <div class="house-icon house-yellow">⚽️</div>
-                <div class="house-name" style="color: #ffcc00;">YELLOW HOUSE</div>
-                <div class="house-score">8</div>
-                <div class="house-points">points</div>
-            </div>
-        </div>
-        
-        <!-- LIVE NOW SECTION -->
-        <div class="live-now">
-            <div class="live-badge">🔴 LIVE</div>
-            <div class="live-info">
-                <h2>Marron House vs Blue House</h2>
-                <p>Semi Final Match | Main Field</p>
-            </div>
-            <div class="live-score">2 - 1</div>
-        </div>
-        
-        <!-- VIDEO PLAYER (YouTube Live Ready) -->
-        <div class="video-container">
-            <iframe 
-                src="https://youtu.be/_XXpb56L8js?si=d7-4U8jF_Bn5Pwft" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-overlay">
-                <i class="fas fa-eye"></i> 234 watching
-            </div>
-        </div>
-        
-        <!-- MATCH SCHEDULE -->
-        <div class="schedule">
-            <h2><i class="fas fa-calendar-alt"></i> Today's Matches</h2>
-            
-            <div class="match-card">
-                <div class="match-teams">
-                    <span style="color: #800000;">MARRON</span>
-                    <span class="vs">VS</span>
-                    <span style="color: #0000ff;">BLUE</span>
+            <!-- HERO HEADER -->
+            <div class="hero-header">
+                <h1>⚽ EVEREST CUP 2026</h1>
+                <div class="subtitle">4 Houses × 4 Grades = 16 Battles</div>
+                <div class="hero-badges">
+                    <span class="badge"><i class="fas fa-users"></i> 500+ Athletes</span>
+                    <span class="badge"><i class="fas fa-trophy"></i> 4 Trophies</span>
+                    <span class="badge"><i class="fas fa-calendar"></i> Feb 20 - Mar 5</span>
                 </div>
-                <div class="match-time">3:00 PM</div>
-                <div class="match-status">LIVE NOW</div>
             </div>
             
-            <div class="match-card">
-                <div class="match-teams">
-                    <span style="color: #333;">WHITE</span>
-                    <span class="vs">VS</span>
-                    <span style="color: #ffcc00;">YELLOW</span>
+            <!-- LIVE NOW SECTION (Dynamic) -->
+            <div class="live-now" id="liveNowSection" style="display: none;">
+                <div class="live-badge">🔴 LIVE</div>
+                <div class="live-info" id="liveInfo">
+                    <h2>Grade ? Match</h2>
+                    <p>?? vs ??</p>
                 </div>
-                <div class="match-time">4:30 PM</div>
-                <div class="match-status upcoming">UP NEXT</div>
+                <div class="live-score" id="liveScore">? - ?</div>
             </div>
             
-            <div class="match-card">
-                <div class="match-teams">
-                    <span>WINNER SF1</span>
-                    <span class="vs">VS</span>
-                    <span>WINNER SF2</span>
+            <!-- GRADE TABS -->
+            <div class="grade-tabs" id="gradeTabs">
+                <button class="grade-tab active" onclick="switchGrade('9')">🏆 Grade 9</button>
+                <button class="grade-tab" onclick="switchGrade('10')">🏆 Grade 10</button>
+                <button class="grade-tab" onclick="switchGrade('11')">🏆 Grade 11</button>
+                <button class="grade-tab" onclick="switchGrade('12')">🏆 Grade 12</button>
+            </div>
+            
+            <!-- HOUSES GRID (Dynamic) -->
+            <div id="housesContainer" class="houses-grid"></div>
+            
+            <!-- CURRENT MATCH SHOWCASE (Dynamic) -->
+            <div class="match-showcase" id="matchShowcase">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            
+            <!-- TROPHY GALLERY (Dynamic) -->
+            <div class="trophy-gallery">
+                <h2><i class="fas fa-crown"></i> Trophy Winners</h2>
+                <div class="trophy-grid" id="trophyGrid"></div>
+            </div>
+            
+            <!-- LIVE CHAT -->
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Live Chat</h2>
+                    <span class="online-count"><i class="fas fa-circle"></i> 234 watching</span>
                 </div>
-                <div class="match-time">6:00 PM</div>
-                <div class="match-status upcoming">FINALS</div>
-            </div>
-        </div>
-        
-        <!-- TOURNAMENT BRACKET -->
-        <div class="bracket">
-            <h2>🏆 Tournament Bracket</h2>
-            
-            <div class="bracket-container">
-                <!-- Semi Finals -->
-                <div class="round">
-                    <h3>Semi Finals</h3>
-                    <div class="match-box">
-                        <div class="team" style="color: #800000;">MARRON</div>
-                        <div class="team" style="color: #0000ff;">BLUE</div>
-                        <div class="score">2 - 1</div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message">
+                        <strong>👤 Yonas:</strong> Go Maroon House! 🎉
+                        <small>2 min ago</small>
                     </div>
-                    <div class="match-box">
-                        <div class="team" style="color: #333;">WHITE</div>
-                        <div class="team" style="color: #ffcc00;">YELLOW</div>
-                        <div class="score">-</div>
+                    <div class="message">
+                        <strong>👤 Sara:</strong> My brother is playing for Blue! 💙
+                        <small>5 min ago</small>
+                    </div>
+                    <div class="message">
+                        <strong>👤 Tekle:</strong> Yellow House fighting! 💛
+                        <small>8 min ago</small>
                     </div>
                 </div>
                 
-                <!-- Final -->
-                <div class="round">
-                    <h3>Final</h3>
-                    <div class="final-box">
-                        <div class="team">MARRON</div>
-                        <div class="team">VS</div>
-                        <div class="team">TBD</div>
-                    </div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Cheer for your house...">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Send</button>
                 </div>
-                
-                <!-- Champion -->
-                <div class="round">
-                    <h3>Champion</h3>
-                    <div class="champion-box">
-                        <div class="team">🏆 TBD</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- PHOTO GALLERY -->
-        <div class="gallery">
-            <h2><i class="fas fa-camera"></i> Match Highlights</h2>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018" alt="Match 1">
-                    <div class="gallery-overlay">
-                        <strong>Marron vs Blue</strong>
-                        <p>Goal celebration!</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974" alt="Match 2">
-                    <div class="gallery-overlay">
-                        <strong>White vs Yellow</strong>
-                        <p>Opening ceremony</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c" alt="Match 3">
-                    <div class="gallery-overlay">
-                        <strong>Fans cheering</strong>
-                        <p>Amazing atmosphere</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20" alt="Match 4">
-                    <div class="gallery-overlay">
-                        <strong>Winners</strong>
-                        <p>Trophy presentation</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- LIVE CHAT -->
-        <div class="chat">
-            <h2><i class="fas fa-comments"></i> Live Chat</h2>
-            
-            <div class="chat-messages" id="chatMessages">
-                <div class="message">
-                    <strong>👤 Parent1:</strong> Go Marron House! 🎉
-                    <small>2 min ago</small>
-                </div>
-                <div class="message">
-                    <strong>👤 BlueFan:</strong> My son just scored! ⚽
-                    <small>5 min ago</small>
-                </div>
-                <div class="message">
-                    <strong>👤 WhiteHouse:</strong> Let's go WHITE! 🤍
-                    <small>8 min ago</small>
-                </div>
-                <div class="message">
-                    <strong>👤 Yellow12:</strong> Yellow House fighting! 💛
-                    <small>12 min ago</small>
-                </div>
-                <!-- Add this somewhere in your footer -->
-<div style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">
-    <i class="fas fa-sync-alt fa-spin"></i> Live updates every 10s
-    <span id="lastUpdated"></span>
-</div>
             </div>
             
-            <div class="chat-input">
-                <input type="text" placeholder="Cheer for your house..." id="chatInput">
-                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Send</button>
+            <!-- FOOTER -->
+            <div class="footer">
+                <p>Made with <i class="fas fa-heart"></i> for Everest Youth Academy | Live scores updated every 10 seconds</p>
+                <p style="margin-top: 10px; font-size: 0.9rem;">Maroon 🤎 | Blue 💙 | Yellow 💛 | White 🤍</p>
             </div>
-            <!-- Add this somewhere in your footer -->
-<div style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">
-    <i class="fas fa-sync-alt fa-spin"></i> Live updates every 10s
-    <span id="lastUpdated"></span>
-</div>
         </div>
-        
     </div>
     
     <script>
-           // Simple chat function
+        // ===== CONFIGURATION =====
+        const API_URL = 'https://everest-youth-acadamey.onrender.com';
+        let currentGrade = '9';
+        let tournamentData = null;
+        
+        // Houses configuration
+        const houses = [
+            { id: 'maroon', name: 'MARRON', color: '#800000', icon: '🤎', textColor: 'white' },
+            { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '💙', textColor: 'white' },
+            { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '💛', textColor: '#333' },
+            { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '🤍', textColor: '#333' }
+        ];
+        
+        // ===== LOAD DATA =====
+        async function loadData() {
+            try {
+                const response = await fetch(`${API_URL}/api/sports-data`);
+                tournamentData = await response.json();
+                updateLiveSection();
+                renderCurrentGrade();
+                renderTrophies();
+                console.log('✅ Data loaded:', tournamentData);
+            } catch (error) {
+                console.error('Failed to load:', error);
+                // Show fallback data
+                tournamentData = {
+                    competitions: {
+                        grade9: {
+                            maroon: { score: 12, wins: 2 },
+                            blue: { score: 15, wins: 1 },
+                            yellow: { score: 8, wins: 0 },
+                            white: { score: 10, wins: 1 }
+                        },
+                        grade10: {
+                            maroon: { score: 10, wins: 1 },
+                            blue: { score: 12, wins: 2 },
+                            yellow: { score: 14, wins: 1 },
+                            white: { score: 9, wins: 0 }
+                        },
+                        grade11: {
+                            maroon: { score: 15, wins: 2 },
+                            blue: { score: 11, wins: 1 },
+                            yellow: { score: 13, wins: 1 },
+                            white: { score: 8, wins: 0 }
+                        },
+                        grade12: {
+                            maroon: { score: 9, wins: 0 },
+                            blue: { score: 16, wins: 2 },
+                            yellow: { score: 12, wins: 1 },
+                            white: { score: 14, wins: 1 }
+                        }
+                    },
+                    currentMatches: {
+                        grade9: { team1: 'MARRON', team2: 'BLUE', score1: 2, score2: 1, status: 'live' },
+                        grade10: { team1: 'YELLOW', team2: 'WHITE', score1: 0, score2: 0, status: 'upcoming' },
+                        grade11: { team1: 'MARRON', team2: 'YELLOW', score1: 3, score2: 2, status: 'finished' },
+                        grade12: { team1: 'BLUE', team2: 'WHITE', score1: 1, score2: 1, status: 'live' },
+                        live: 'grade12'
+                    },
+                    trophies: {
+                        grade9: 'blue',
+                        grade10: 'maroon',
+                        grade11: 'yellow',
+                        grade12: null
+                    }
+                };
+                updateLiveSection();
+                renderCurrentGrade();
+                renderTrophies();
+            }
+        }
+        
+        // ===== UPDATE LIVE SECTION =====
+        function updateLiveSection() {
+            const liveGrade = tournamentData.currentMatches.live;
+            const liveSection = document.getElementById('liveNowSection');
+            
+            if (liveGrade) {
+                const match = tournamentData.currentMatches[liveGrade];
+                const gradeNum = liveGrade.replace('grade', '');
+                
+                document.getElementById('liveInfo').innerHTML = `
+                    <h2>⚡ Grade ${gradeNum} • LIVE</h2>
+                    <p>${match.team1} vs ${match.team2}</p>
+                `;
+                document.getElementById('liveScore').textContent = `${match.score1} - ${match.score2}`;
+                liveSection.style.display = 'flex';
+            } else {
+                liveSection.style.display = 'none';
+            }
+        }
+        
+        // ===== SWITCH GRADE =====
+        function switchGrade(grade) {
+            currentGrade = grade;
+            
+            // Update tab styles
+            document.querySelectorAll('.grade-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.textContent.includes(`Grade ${grade}`)) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            renderCurrentGrade();
+        }
+        
+        // ===== RENDER CURRENT GRADE =====
+        function renderCurrentGrade() {
+            if (!tournamentData) return;
+            
+            const gradeData = tournamentData.competitions[`grade${currentGrade}`];
+            
+            // Render houses
+            let housesHtml = '';
+            
+            houses.forEach((house, index) => {
+                const houseData = gradeData[house.id];
+                housesHtml += `
+                    <div class="house-card house-${house.id}" style="animation-delay: ${index * 0.1}s; border-top-color: ${house.color}; background: ${house.id === 'white' ? 'rgba(245,245,245,0.95)' : 'rgba(255,255,255,0.95)'}">
+                        <div class="house-header">
+                            <span class="house-name" style="color: ${house.id === 'yellow' ? '#333' : '#1e3c72'}">${house.name}</span>
+                            <span class="house-icon">${house.icon}</span>
+                        </div>
+                        <div class="score-display">
+                            <span class="score-number">${houseData.score}</span>
+                            <div class="score-label">POINTS</div>
+                        </div>
+                        <div class="wins-badge">
+                            <i class="fas fa-trophy"></i> ${houseData.wins} ${houseData.wins === 1 ? 'WIN' : 'WINS'}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('housesContainer').innerHTML = housesHtml;
+            
+            // Render match showcase
+            const match = tournamentData.currentMatches[`grade${currentGrade}`];
+            const isLive = tournamentData.currentMatches.live === `grade${currentGrade}`;
+            
+            const matchHtml = `
+                <div class="match-header">
+                    <h2><i class="fas fa-futbol"></i> Grade ${currentGrade} Match</h2>
+                    <span class="match-status-badge" style="background: ${isLive ? 'linear-gradient(135deg, #ff4444, #cc0000)' : 'linear-gradient(135deg, #1e3c72, #2a5298)'}">
+                        ${isLive ? '🔴 LIVE NOW' : match.status === 'finished' ? '✅ FINISHED' : '⏰ UPCOMING'}
+                    </span>
+                </div>
+                <div class="match-teams">
+                    <div class="team">
+                        <div class="team-icon">${houses.find(h => h.name === match.team1)?.icon || '🤎'}</div>
+                        <div class="team-name" style="color: ${houses.find(h => h.name === match.team1)?.color || '#800000'}">${match.team1}</div>
+                        <div class="team-score">${match.score1}</div>
+                    </div>
+                    <div class="versus">VS</div>
+                    <div class="team">
+                        <div class="team-icon">${houses.find(h => h.name === match.team2)?.icon || '💙'}</div>
+                        <div class="team-name" style="color: ${houses.find(h => h.name === match.team2)?.color || '#0000ff'}">${match.team2}</div>
+                        <div class="team-score">${match.score2}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('matchShowcase').innerHTML = matchHtml;
+        }
+        
+        // ===== RENDER TROPHIES =====
+        function renderTrophies() {
+            if (!tournamentData) return;
+            
+            let trophyHtml = '';
+            const grades = ['9', '10', '11', '12'];
+            
+            grades.forEach((grade, index) => {
+                const winner = tournamentData.trophies[`grade${grade}`];
+                const winnerHouse = houses.find(h => h.id === winner);
+                
+                trophyHtml += `
+                    <div class="trophy-card" style="animation-delay: ${index * 0.1}s">
+                        <h3>Grade ${grade}</h3>
+                        <div class="trophy-icon">${winnerHouse ? winnerHouse.icon : '🏆'}</div>
+                        <div class="winner-name">${winnerHouse ? winnerHouse.name : 'TBD'}</div>
+                        ${winnerHouse ? 
+                            `<div class="winner-badge" style="background: ${winnerHouse.color}">CHAMPION</div>` : 
+                            `<div class="winner-badge" style="background: #666">UPCOMING</div>`
+                        }
+                    </div>
+                `;
+            });
+            
+            document.getElementById('trophyGrid').innerHTML = trophyHtml;
+        }
+        
+        // ===== CHAT FUNCTIONS =====
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
@@ -831,128 +1104,17 @@
         }
         
         // Enter key to send
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+        document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();
             }
         });
         
-        // Auto-refresh scores (simulated)
-        setInterval(() => {
-            console.log('🔄 Refreshing scores...');
-            // In future: fetch live scores from server
-        }, 30000);
-   
-    // ===== LIVE UPDATES FOR PUBLIC PAGE =====
-    const API_URL = 'https://everest-youth-acadamey.onrender.com';; // ← SAME URL!
-    
-    async function loadLiveData() {
-        try {
-            const response = await fetch(`${API_URL}/api/sports-data`);
-            const data = await response.json();
-            
-            // Update house scores
-            updateHouseScores(data.scores);
-            
-            // Update matches
-            updateMatches(data.matches);
-            
-            // Update last updated time
-            document.getElementById('lastUpdated').textContent = 
-                new Date(data.lastUpdated).toLocaleTimeString();
-                
-        } catch (error) {
-            console.log('Server offline, using local data');
-            loadLocalData();
-        }
-    }
-    
-    function updateHouseScores(scores) {
-        // Update based on your HTML structure
-        const houseElements = document.querySelectorAll('.house-score');
-        if (houseElements.length >= 4) {
-            houseElements[0].textContent = scores.white;  // White
-            houseElements[1].textContent = scores.marron; // Marron
-            houseElements[2].textContent = scores.blue;   // Blue
-            houseElements[3].textContent = scores.yellow; // Yellow
-        }
-    }
-    
-    function updateMatches(matches) {
-        // Update based on your match display structure
-        // You'll need to add IDs or classes to your match elements
-        console.log('Matches updated:', matches);
-    }
-    
-    function loadLocalData() {
-        const savedScores = localStorage.getItem('everestScores');
-        if (savedScores) {
-            updateHouseScores(JSON.parse(savedScores));
-        }
-    }
-    
-    // Load immediately
-    document.addEventListener('DOMContentLoaded', loadLiveData);
-    
-    // Auto-refresh every 10 seconds
-    setInterval(loadLiveData, 10000);
+        // ===== AUTO-REFRESH =====
+        setInterval(loadData, 10000); // Refresh every 10 seconds
         
-    // ===== LIVE UPDATES FOR PUBLIC PAGE =====
-    const API_URL = 'https://YOUR-BACKEND-URL.railway.app'; // ← SAME URL!
-    
-    async function loadLiveData() {
-        try {
-            const response = await fetch(`${API_URL}/api/sports-data`);
-            const data = await response.json();
-            
-            // Update house scores
-            updateHouseScores(data.scores);
-            
-            // Update matches
-            updateMatches(data.matches);
-            
-            // Update last updated time
-            document.getElementById('lastUpdated').textContent = 
-                new Date(data.lastUpdated).toLocaleTimeString();
-                
-        } catch (error) {
-            console.log('Server offline, using local data');
-            loadLocalData();
-        }
-    }
-    
-    function updateHouseScores(scores) {
-        // Update based on your HTML structure
-        const houseElements = document.querySelectorAll('.house-score');
-        if (houseElements.length >= 4) {
-            houseElements[0].textContent = scores.white;  // White
-            houseElements[1].textContent = scores.marron; // Marron
-            houseElements[2].textContent = scores.blue;   // Blue
-            houseElements[3].textContent = scores.yellow; // Yellow
-        }
-    }
-    
-    function updateMatches(matches) {
-        // Update based on your match display structure
-        // You'll need to add IDs or classes to your match elements
-        console.log('Matches updated:', matches);
-    }
-    
-    function loadLocalData() {
-        const savedScores = localStorage.getItem('everestScores');
-        if (savedScores) {
-            updateHouseScores(JSON.parse(savedScores));
-        }
-    }
-    
-    // Load immediately
-    document.addEventListener('DOMContentLoaded', loadLiveData);
-    
-    // Auto-refresh every 10 seconds
-    setInterval(loadLiveData, 10000);
-</script>
-
-
-
+        // ===== INITIAL LOAD =====
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
 </body>
 </html>
