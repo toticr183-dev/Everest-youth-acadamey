@@ -971,6 +971,8 @@
             if (liveGrade) {
                 const match = tournamentData.currentMatches[liveGrade];
                 const gradeNum = liveGrade.replace('grade', '');
+                const API_URL = 'https://everest-youth-acadamey.onrender.com';
+                const ADMIN_PASSWORD = 'everest2026';
                 
                 document.getElementById('liveInfo').innerHTML = `
                     <h2>⚡ Grade ${gradeNum} • LIVE</h2>
