@@ -1039,52 +1039,266 @@
     
     
     <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <div>
-                <div class="footer-logo">
-                    <div class="footer-logo-icon"<img src="everest logo.png"></div>
-                    <div class="footer-logo-text">
-                        <h3>Everest Youth</h3>
-                        <p>Academy</p>
-                    </div>
-                </div>
-                <p style="color: #999; line-height: 1.8;">Excellence in education from KG to Grade 12. Two branches serving Addis Ababa.</p>
+    <!-- ===== STUNNING CONTACT & FOOTER SECTION ===== -->
+<footer style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 80px 5% 30px; position: relative; overflow: hidden; margin-top: 50px;">
+    
+    <!-- Animated background elements -->
+    <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(255,215,0,0.05); border-radius: 50%; filter: blur(60px);"></div>
+    <div style="position: absolute; bottom: -50px; left: -50px; width: 300px; height: 300px; background: rgba(30,60,114,0.1); border-radius: 50%; filter: blur(80px);"></div>
+    
+    <div class="container" style="max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;">
+        
+        <!-- ===== YOUTUBE LIVE EMBED SECTION ===== -->
+        <div style="margin-bottom: 60px; text-align: center; animation: fadeInUp 1s ease;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(135deg, #ff4444, #ff0000); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+                <i class="fab fa-youtube"></i> EVEREST LIVE
+            </h2>
+            <p style="color: #999; margin-bottom: 30px;">Watch our Sports Festival and special events live!</p>
+            
+            <!-- YouTube Live Embed Container -->
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; box-shadow: 0 30px 60px rgba(255,0,0,0.3); border: 3px solid #ff4444;">
+                <iframe 
+                    src="https://www.youtube.com/embed/live_stream?channel=UCEVERSTYOUTH" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
             </div>
             
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="everest-home.html">Home</a></li>
-                    <li><a href="everest-leaders.html">Leadership</a></li>
-                    <li><a href="#">Academics</a></li>
-                    <li><a href="everest-sports-festival.html">Sports Festival</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Branches</h4>
-                <ul>
-                    <li><a href="#">Alam Gena (Main)</a></li>
-                    <li><a href="#">Kara (Primary)</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Contact</h4>
-                <ul>
-                    <li><i class="fas fa-phone"></i> +251 --- --- ---</li>
-                    <li><i class="fas fa-envelope"></i> info@everest.edu.et</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Addis Ababa</li>
-                </ul>
+            <!-- Live indicator -->
+            <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                <span style="display: flex; align-items: center; gap: 5px; background: rgba(255,68,68,0.2); padding: 8px 20px; border-radius: 50px;">
+                    <span style="width: 12px; height: 12px; background: #ff4444; border-radius: 50%; animation: pulse 1.5s infinite;"></span>
+                    <span style="color: #ff4444; font-weight: 600;">LIVE NOW</span>
+                </span>
+                <span style="color: #666;">Next broadcast: Saturday 3:00 PM</span>
             </div>
         </div>
         
-        <div class="footer-bottom">
-            <p>© 2026 Everest Youth Academy. All rights reserved. | KG to Grade 12 Excellence</p>
-            <p>developed by Tofik and Lema everest youth acadamey grade 11 students and web developer</p>
+        <!-- ===== MAIN FOOTER CONTENT ===== -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; margin-bottom: 50px;">
+            
+            <!-- Column 1: School Info -->
+            <div style="animation: fadeInUp 1s ease 0.2s both;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; color: white;">E</div>
+                    <div>
+                        <h3 style="font-size: 1.8rem; color: white;">Everest Youth</h3>
+                        <p style="color: #00a884; font-weight: 600;">Academy</p>
+                    </div>
+                </div>
+                <p style="color: #999; line-height: 1.8; margin-bottom: 25px;">Excellence in education from Kindergarten to Grade 12. Two branches serving the next generation of Ethiopian leaders since 1995.</p>
+                
+                <!-- Social Media Icons with hover effects -->
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" style="width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='#1e3c72'; this.style.transform='translateY(-5px) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0) scale(1)';">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" style="width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='#0088cc'; this.style.transform='translateY(-5px) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0) scale(1)';">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="#" style="width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='#ff0000'; this.style.transform='translateY(-5px) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0) scale(1)';">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" style="width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(135deg, #833ab4, #fd1d1d, #fcaf45)'; this.style.transform='translateY(-5px) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0) scale(1)';">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Contact Info - BEAUTIFUL SECTION -->
+            <div style="animation: fadeInUp 1s ease 0.3s both;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 30px; position: relative; display: inline-block;">
+                    <i class="fas fa-phone-alt" style="color: #00a884; margin-right: 10px;"></i> Contact Us
+                    <span style="position: absolute; bottom: -10px; left: 0; width: 60px; height: 3px; background: linear-gradient(90deg, #00a884, transparent);"></span>
+                </h3>
+                
+                <!-- Contact Cards -->
+                <div style="display: grid; gap: 25px;">
+                    
+                    <!-- Phone Card -->
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); border-left: 4px solid #00a884; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.background='rgba(255,255,255,0.1)';" onmouseout="this.style.transform='translateX(0)'; this.style.background='rgba(255,255,255,0.05)';">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: rgba(0,168,132,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-phone-alt" style="color: #00a884; font-size: 1.3rem;"></i>
+                            </div>
+                            <div>
+                                <p style="color: #999; font-size: 0.9rem;">Call Us</p>
+                                <p style="color: white; font-weight: 600; font-size: 1.2rem;">+251 11 123 4567</p>
+                                <p style="color: #666; font-size: 0.8rem;">24/7 for emergencies</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Card -->
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); border-left: 4px solid #ff4444; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.background='rgba(255,255,255,0.1)';" onmouseout="this.style.transform='translateX(0)'; this.style.background='rgba(255,255,255,0.05)';">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,68,68,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-envelope" style="color: #ff4444; font-size: 1.3rem;"></i>
+                            </div>
+                            <div>
+                                <p style="color: #999; font-size: 0.9rem;">Email Us</p>
+                                <p style="color: white; font-weight: 600; font-size: 1.2rem;">info@everest.edu.et</p>
+                                <p style="color: #666; font-size: 0.8rem;">Response within 24h</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Card -->
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; backdrop-filter: blur(10px); border-left: 4px solid #ffd700; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(10px)'; this.style.background='rgba(255,255,255,0.1)';" onmouseout="this.style.transform='translateX(0)'; this.style.background='rgba(255,255,255,0.05)';">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,215,0,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-map-marker-alt" style="color: #ffd700; font-size: 1.3rem;"></i>
+                            </div>
+                            <div>
+                                <p style="color: #999; font-size: 0.9rem;">Visit Us</p>
+                                <p style="color: white; font-weight: 600; font-size: 1.2rem;">Alam Gena & Kara</p>
+                                <p style="color: #666; font-size: 0.8rem;">Addis Ababa, Ethiopia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map Preview -->
+                <div style="margin-top: 25px; border-radius: 15px; overflow: hidden; height: 120px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.1);">
+                    <i class="fas fa-map" style="font-size: 2rem; color: #666; margin-right: 10px;"></i>
+                    <span style="color: #666;">Map view coming soon</span>
+                </div>
+            </div>
+            
+            <!-- Column 3: Quick Contact Form -->
+            <div style="animation: fadeInUp 1s ease 0.4s both;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 30px; position: relative; display: inline-block;">
+                    <i class="fas fa-paper-plane" style="color: #00a884; margin-right: 10px;"></i> Quick Message
+                    <span style="position: absolute; bottom: -10px; left: 0; width: 60px; height: 3px; background: linear-gradient(90deg, #00a884, transparent);"></span>
+                </h3>
+                
+                <form onsubmit="event.preventDefault(); alert('Message sent! We\'ll contact you soon.');">
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" placeholder="Your Name" style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 2px solid transparent; border-radius: 10px; color: white; transition: all 0.3s ease;" onfocus="this.style.borderColor='#00a884'; this.style.background='rgba(255,255,255,0.1)';" onblur="this.style.borderColor='transparent'; this.style.background='rgba(255,255,255,0.05)';">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <input type="email" placeholder="Your Email" style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 2px solid transparent; border-radius: 10px; color: white; transition: all 0.3s ease;" onfocus="this.style.borderColor='#00a884'; this.style.background='rgba(255,255,255,0.1)';" onblur="this.style.borderColor='transparent'; this.style.background='rgba(255,255,255,0.05)';">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <textarea placeholder="Your Message" rows="3" style="width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 2px solid transparent; border-radius: 10px; color: white; transition: all 0.3s ease;" onfocus="this.style.borderColor='#00a884'; this.style.background='rgba(255,255,255,0.1)';" onblur="this.style.borderColor='transparent'; this.style.background='rgba(255,255,255,0.05)';"></textarea>
+                    </div>
+                    <button type="submit" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #00a884, #008751); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 20px rgba(0,168,132,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
         </div>
-    </footer>
+        
+        <!-- ===== DEVELOPER CREDIT SECTION - BEAUTIFUL! ===== -->
+        <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(255,255,255,0.05); text-align: center;">
+            
+            <!-- Developer Cards -->
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 30px;">
+                
+                <!-- Tofik Card -->
+                <div style="background: linear-gradient(135deg, rgba(30,60,114,0.2), rgba(42,82,152,0.2)); padding: 25px 35px; border-radius: 60px; backdrop-filter: blur(10px); border: 2px solid rgba(255,215,0,0.2); display: flex; align-items: center; gap: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#ffd700';" onmouseout="this.style.transform='scale(1)'; this.style.borderColor='rgba(255,215,0,0.2)';">
+                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: white;">T</div>
+                    <div style="text-align: left;">
+                        <h4 style="color: white; font-size: 1.2rem;">Tofik</h4>
+                        <p style="color: #ffd700; font-size: 0.9rem;">Lead Developer</p>
+                        <p style="color: #999; font-size: 0.8rem;">Grade 11 • Everest Student</p>
+                    </div>
+                </div>
+                
+                <!-- Lema Card -->
+                <div style="background: linear-gradient(135deg, rgba(0,168,132,0.2), rgba(0,135,81,0.2)); padding: 25px 35px; border-radius: 60px; backdrop-filter: blur(10px); border: 2px solid rgba(0,168,132,0.2); display: flex; align-items: center; gap: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#00a884';" onmouseout="this.style.transform='scale(1)'; this.style.borderColor='rgba(0,168,132,0.2)';">
+                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #00a884, #008751); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: white;">L</div>
+                    <div style="text-align: left;">
+                        <h4 style="color: white; font-size: 1.2rem;">Lema</h4>
+                        <p style="color: #00a884; font-size: 0.9rem;">Partner Developer</p>
+                        <p style="color: #999; font-size: 0.8rem;">Grade 11 • Everest Student</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Credit Line -->
+            <div style="margin-bottom: 20px;">
+                <p style="color: #999; font-size: 1.1rem;">
+                    <i class="fas fa-code" style="color: #ffd700;"></i> Developed with 
+                    <i class="fas fa-heart" style="color: #ff4444; animation: heartbeat 1.5s infinite;"></i> by 
+                    <span style="color: white; font-weight: 700;">Tofik & Lema</span>
+                </p>
+                <p style="color: #666; margin-top: 5px; font-size: 0.95rem;">
+                    <i class="fas fa-graduation-cap"></i> Grade 11 Students at Everest Youth Academy 
+                    <span style="display: inline-block; width: 6px; height: 6px; background: #ffd700; border-radius: 50%; margin: 0 8px;"></span>
+                    <i class="fas fa-code-branch"></i> Web Developers
+                </p>
+            </div>
+            
+            <!-- Badges -->
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 30px 0;">
+                <span style="background: rgba(255,215,0,0.1); color: #ffd700; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; border: 1px solid rgba(255,215,0,0.3);">
+                    <i class="fas fa-trophy"></i> 4 Houses × 4 Grades
+                </span>
+                <span style="background: rgba(0,168,132,0.1); color: #00a884; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; border: 1px solid rgba(0,168,132,0.3);">
+                    <i class="fas fa-futbol"></i> Live Sports Festival
+                </span>
+                <span style="background: rgba(255,68,68,0.1); color: #ff4444; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; border: 1px solid rgba(255,68,68,0.3);">
+                    <i class="fab fa-youtube"></i> YouTube Live
+                </span>
+                <span style="background: rgba(30,60,114,0.1); color: #1e3c72; padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; border: 1px solid rgba(30,60,114,0.3);">
+                    <i class="fas fa-cloud-upload-alt"></i> Cloud Powered
+                </span>
+            </div>
+            
+            <!-- Copyright -->
+            <div style="margin-top: 30px; color: #666; font-size: 0.9rem;">
+                <p>© 2026 Everest Youth Academy. All rights reserved.</p>
+                <p style="margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span>Alam Gena Branch</span>
+                    <span style="color: #ffd700;">•</span>
+                    <span>Kara Branch</span>
+                    <span style="color: #ffd700;">•</span>
+                    <span>KG to Grade 12</span>
+                </p>
+                <p style="margin-top: 15px; color: #444; font-size: 0.8rem;">
+                    Built with <i class="fas fa-heart" style="color: #ff4444;"></i> for our school by students
+                </p>
+                <p style="margin-top: 5px; font-size: 1.2rem;">
+                    🇪🇹 <span style="color: #008751;">Made in</span> <span style="color: #ffd700; font-weight: bold;">Ethiopia</span> 🇪🇹
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Add animations -->
+<style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.1); }
+        50% { transform: scale(1); }
+        75% { transform: scale(1.1); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    .fade-in {
+        animation: fadeInUp 0.6s ease;
+    }
+</style>
+        
     
     <!-- BACK TO TOP -->
     <a href="#" class="back-to-top" id="backToTop">
