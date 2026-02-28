@@ -859,11 +859,11 @@
                         <small>2 min ago</small>
                     </div>
                     <div class="message">
-                        <strong>👤 Sara:</strong> My brother is playing for Blue! 💙
+                        <strong>👤 Sara:</strong> My brother is playing for Blue! ⚽️
                         <small>5 min ago</small>
                     </div>
                     <div class="message">
-                        <strong>👤 Tekle:</strong> Yellow House fighting! 💛
+                        <strong>👤 Tekle:</strong> Yellow House fighting! ⚽️
                         <small>8 min ago</small>
                     </div>
                 </div>
@@ -877,7 +877,7 @@
             <!-- FOOTER -->
             <div class="footer">
                 <p>Made with <i class="fas fa-heart"></i> for Everest Youth Academy | Live scores updated every 10 seconds</p>
-                <p style="margin-top: 10px; font-size: 0.9rem;">Maroon 🤎 | Blue 💙 | Yellow 💛 | White 🤍</p>
+                <p style="margin-top: 10px; font-size: 0.9rem;">Maroon ⚽️ | Blue ⚽️ | Yellow ⚽️ | White 🤍</p>
             </div>
         </div>
     </div>
@@ -890,10 +890,10 @@
         
         // Houses configuration
         const houses = [
-            { id: 'maroon', name: 'MARRON', color: '#800000', icon: '🤎', textColor: 'white' },
-            { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '💙', textColor: 'white' },
-            { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '💛', textColor: '#333' },
-            { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '🤍', textColor: '#333' }
+            { id: 'maroon', name: 'MARRON', color: '#800000', icon: '⚽️', textColor: 'white' },
+            { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '⚽️', textColor: 'white' },
+            { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '⚽️', textColor: '#333' },
+            { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '⚽️', textColor: '#333' }
         ];
         
         // ===== LOAD DATA =====
@@ -1035,13 +1035,13 @@
                 </div>
                 <div class="match-teams">
                     <div class="team">
-                        <div class="team-icon">${houses.find(h => h.name === match.team1)?.icon || '🤎'}</div>
+                        <div class="team-icon">${houses.find(h => h.name === match.team1)?.icon || '⚽️'}</div>
                         <div class="team-name" style="color: ${houses.find(h => h.name === match.team1)?.color || '#800000'}">${match.team1}</div>
                         <div class="team-score">${match.score1}</div>
                     </div>
                     <div class="versus">VS</div>
                     <div class="team">
-                        <div class="team-icon">${houses.find(h => h.name === match.team2)?.icon || '💙'}</div>
+                        <div class="team-icon">${houses.find(h => h.name === match.team2)?.icon || '⚽️'}</div>
                         <div class="team-name" style="color: ${houses.find(h => h.name === match.team2)?.color || '#0000ff'}">${match.team2}</div>
                         <div class="team-score">${match.score2}</div>
                     </div>
