@@ -18,10 +18,10 @@ const DATA_FILE = path.join(__dirname, 'sports-data.json');
 // ===== 4 HOUSES × 4 GRADES DATA STRUCTURE =====
 const defaultData = {
     houses: {
-        maroon: { name: 'MARRON', color: '#800000', icon: '🤎' },
-        blue: { name: 'BLUE', color: '#0000ff', icon: '💙' },
-        yellow: { name: 'YELLOW', color: '#ffcc00', icon: '💛' },
-        white: { name: 'WHITE', color: '#ffffff', icon: '🤍' }
+        maroon: { name: 'MARRON', color: '#800000', icon: '⚽️' },
+        blue: { name: 'BLUE', color: '#0000ff', icon: '⚽️' },
+        yellow: { name: 'YELLOW', color: '#ffcc00', icon: '⚽️' },
+        white: { name: 'WHITE', color: '#ffffff', icon: '⚽️' }
     },
     grades: ['9', '10', '11', '12'],
     competitions: {
