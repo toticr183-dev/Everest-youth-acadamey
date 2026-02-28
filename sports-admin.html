@@ -716,6 +716,28 @@
     window.addEventListener('beforeunload', function() {
         saveToLocal(); // Local backup
     });
+                // REMOVE all JSONBin code
+// USE this instead:
+
+async function saveToServer() {
+    try {
+        const response = await fetch('https://everest-sports.up.railway.app/api/update-scores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                password: 'everest2026', // Same as in server.js
+                scores: scores
+            })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            showStatus('✅ Saved to cloud!');
+        }
+    } catch (error) {
+        showStatus('❌ Server offline', 3000);
+    }
+}
 
     </script>
 </body>
