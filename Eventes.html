@@ -1,0 +1,491 @@
+<!-- ===== EVENTS GALLERY SECTION ===== -->
+<section class="events-gallery">
+  <div class="container">
+    <!-- Section Header with Ethiopian flair -->
+    <div class="section-header">
+      <span class="sub-title">📸 Capture The Moment</span>
+      <h2 class="main-title">Sports Festival <span class="highlight">Memories</span></h2>
+      <p class="description">Relive the energy, the competition, and the glory of Everest Youth Academy's greatest sporting moments.</p>
+    </div>
+
+    <!-- Category Filter Tabs (Modern & Smooth) -->
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-filter="all">🏆 All Moments</button>
+      <button class="filter-btn" data-filter="photos">📷 Photos</button>
+      <button class="filter-btn" data-filter="videos">🎥 Videos</button>
+      <button class="filter-btn" data-filter="matches">⚡ Live Matches</button>
+    </div>
+
+    <!-- Main Masonry Grid Gallery -->
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- FEATURED: Championship Final (Large Card) -->
+      <div class="gallery-item featured" data-category="videos matches">
+        <div class="media-card">
+          <div class="media-preview video-thumbnail">
+            <img src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=600" alt="Championship Final">
+            <div class="play-button">▶</div>
+            <div class="media-duration">02:34</div>
+          </div>
+          <div class="media-info">
+            <h3>⚽ Championship Final: Maroon vs White</h3>
+            <div class="media-meta">
+              <span>📅 March 15, 2024</span>
+              <span>👥 230 views</span>
+            </div>
+            <p>The most exciting match of the tournament! Marron House takes the trophy in penalty shootout.</p>
+            <div class="media-tags">
+              <span class="tag">⚽ Football</span>
+              <span class="tag">🏆 Final</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- White House Celebration -->
+      <div class="gallery-item" data-category="photos">
+        <div class="media-card">
+          <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?w=600" alt="White House Team" loading="lazy">
+          <div class="media-overlay">
+            <h3>🤍 White House Team Huddle</h3>
+            <p>Pre-match motivation at its finest</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marron House Victory Dance -->
+      <div class="gallery-item" data-category="videos">
+        <div class="media-card video-card">
+          <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=600" alt="Victory Dance" loading="lazy">
+          <div class="video-badge">🎥</div>
+          <div class="media-overlay">
+            <h3>💃 Marron House Victory Dance</h3>
+            <p>Celebration after winning athletics</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue House Basketball -->
+      <div class="gallery-item" data-category="photos matches">
+        <div class="media-card">
+          <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600" alt="Basketball Match" loading="lazy">
+          <div class="media-overlay">
+            <h3>🏀 Blue House vs Yellow House</h3>
+            <p>Intense basketball semifinal</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yellow House Spirit (Group Photo) -->
+      <div class="gallery-item wide" data-category="photos">
+        <div class="media-card">
+          <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600" alt="Yellow House Spirit" loading="lazy">
+          <div class="media-overlay">
+            <h3>💛 Yellow House Spirit Squad</h3>
+            <p>Best cheerleading performance</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interview with Captain -->
+      <div class="gallery-item" data-category="videos">
+        <div class="media-card video-card">
+          <img src="https://images.unsplash.com/photo-1552674605-db6ffd0e7b7d?w=600" alt="Captain Interview" loading="lazy">
+          <div class="video-badge">🎥</div>
+          <div class="media-overlay">
+            <h3>🎤 Interview: Marron House Captain</h3>
+            <p>"We trained all year for this!"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medal Ceremony -->
+      <div class="gallery-item" data-category="photos">
+        <div class="media-card">
+          <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600" alt="Medal Ceremony" loading="lazy">
+          <div class="media-overlay">
+            <h3>🏅 Medal Ceremony Highlights</h3>
+            <p>Individual champions recognized</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More Button (with Ethiopian colors) -->
+    <div class="load-more-container">
+      <button class="load-more-btn">
+        <span>📸</span>
+        Load More Memories
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Modern CSS with Ethiopian spirit */
+.events-gallery {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 4rem 1.5rem;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section Header Styling */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.sub-title {
+  display: inline-block;
+  background: linear-gradient(135deg, #078c3b 0%, #1a4d2e 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(7, 140, 59, 0.2);
+}
+
+.main-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: #1a2b3e;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.main-title .highlight {
+  background: linear-gradient(135deg, #078c3b, #fcda05);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #4a5a6e;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Filter Tabs - Modern & Touch-Friendly */
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  background: white;
+  border: 2px solid #eef2f6;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a5a6e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.filter-btn:hover {
+  border-color: #078c3b;
+  color: #078c3b;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(7, 140, 59, 0.1);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #078c3b, #1a4d2e);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 10px 25px rgba(7, 140, 59, 0.3);
+}
+
+/* Masonry Grid Layout */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-auto-rows: minmax(280px, auto);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Special grid spans for visual interest */
+.gallery-item.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.gallery-item.wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .gallery-item.featured,
+  .gallery-item.wide {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* Media Cards - Beautiful & Modern */
+.media-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  height: 100%;
+  cursor: pointer;
+}
+
+.media-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 45px -12px rgba(7, 140, 59, 0.25);
+}
+
+.media-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.media-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Video specific styling */
+.media-preview {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.media-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #078c3b;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.media-card:hover .play-button {
+  background: #078c3b;
+  color: white;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.media-duration {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Media Info for Featured Cards */
+.media-info {
+  padding: 1.5rem;
+  background: white;
+}
+
+.media-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a2b3e;
+  margin-bottom: 0.8rem;
+}
+
+.media-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 0.8rem;
+}
+
+.media-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #f0fdf4;
+  color: #078c3b;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Overlay for image cards */
+.media-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  color: white;
+  padding: 2rem 1.5rem 1.5rem;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.media-card:hover .media-overlay {
+  transform: translateY(0);
+}
+
+.media-overlay h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.media-overlay p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.video-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Load More Button */
+.load-more-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.load-more-btn {
+  background: white;
+  border: 2px solid #078c3b;
+  padding: 1rem 2.5rem;
+  border-radius: 60px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #078c3b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  box-shadow: 0 10px 25px rgba(7, 140, 59, 0.1);
+}
+
+.load-more-btn:hover {
+  background: linear-gradient(135deg, #078c3b, #1a4d2e);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 20px 35px rgba(7, 140, 59, 0.3);
+}
+
+.load-more-btn span {
+  font-size: 1.3rem;
+}
+
+/* Filter animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading skeleton (optional but cool) */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+</style>
+
+<!-- Add this JavaScript for filter functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Get filter value
+      const filterValue = button.getAttribute('data-filter');
+
+      // Filter items
+      galleryItems.forEach(item => {
+        if (filterValue === 'all') {
+          item.style.display = 'block';
+        } else {
+          const categories = item.getAttribute('data-category');
+          if (categories && categories.includes(filterValue)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+});
+</script>
