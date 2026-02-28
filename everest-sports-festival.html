@@ -801,6 +801,11 @@
                 <input type="text" placeholder="Cheer for your house..." id="chatInput">
                 <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Send</button>
             </div>
+            <!-- Add this somewhere in your footer -->
+<div style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">
+    <i class="fas fa-sync-alt fa-spin"></i> Live updates every 10s
+    <span id="lastUpdated"></span>
+</div>
         </div>
         
     </div>
@@ -837,36 +842,117 @@
             console.log('🔄 Refreshing scores...');
             // In future: fetch live scores from server
         }, 30000);
-    // ===== LOAD LIVE SCORES FROM ADMIN =====
-function loadLiveScores() {
-    // Load from localStorage (what admin saves)
-    const savedScores = localStorage.getItem('everestScores');
-    if (savedScores) {
-        const scores = JSON.parse(savedScores);
-        
-        // Update house scores
-        document.querySelector('.house-white .house-score').textContent = scores.white;
-        document.querySelector('.house-marron .house-score').textContent = scores.marron;
-        document.querySelector('.house-blue .house-score').textContent = scores.blue;
-        document.querySelector('.house-yellow .house-score').textContent = scores.yellow;
+   
+    // ===== LIVE UPDATES FOR PUBLIC PAGE =====
+    const API_URL = 'https://YOUR-BACKEND-URL.railway.app'; // ← SAME URL!
+    
+    async function loadLiveData() {
+        try {
+            const response = await fetch(`${API_URL}/api/sports-data`);
+            const data = await response.json();
+            
+            // Update house scores
+            updateHouseScores(data.scores);
+            
+            // Update matches
+            updateMatches(data.matches);
+            
+            // Update last updated time
+            document.getElementById('lastUpdated').textContent = 
+                new Date(data.lastUpdated).toLocaleTimeString();
+                
+        } catch (error) {
+            console.log('Server offline, using local data');
+            loadLocalData();
+        }
     }
     
-    const savedMatches = localStorage.getItem('everestMatches');
-    if (savedMatches) {
-        const matches = JSON.parse(savedMatches);
-        
-        // Update match displays
-        // You'll need to add IDs to your match elements
-        updateMatchDisplay(matches);
+    function updateHouseScores(scores) {
+        // Update based on your HTML structure
+        const houseElements = document.querySelectorAll('.house-score');
+        if (houseElements.length >= 4) {
+            houseElements[0].textContent = scores.white;  // White
+            houseElements[1].textContent = scores.marron; // Marron
+            houseElements[2].textContent = scores.blue;   // Blue
+            houseElements[3].textContent = scores.yellow; // Yellow
+        }
     }
-}
-
-// Auto-refresh every 30 seconds
-setInterval(loadLiveScores, 30000);
-
-// Load on page start
-document.addEventListener('DOMContentLoaded', loadLiveScores);
+    
+    function updateMatches(matches) {
+        // Update based on your match display structure
+        // You'll need to add IDs or classes to your match elements
+        console.log('Matches updated:', matches);
+    }
+    
+    function loadLocalData() {
+        const savedScores = localStorage.getItem('everestScores');
+        if (savedScores) {
+            updateHouseScores(JSON.parse(savedScores));
+        }
+    }
+    
+    // Load immediately
+    document.addEventListener('DOMContentLoaded', loadLiveData);
+    
+    // Auto-refresh every 10 seconds
+    setInterval(loadLiveData, 10000);
         
-    </script>
+    // ===== LIVE UPDATES FOR PUBLIC PAGE =====
+    const API_URL = 'https://YOUR-BACKEND-URL.railway.app'; // ← SAME URL!
+    
+    async function loadLiveData() {
+        try {
+            const response = await fetch(`${API_URL}/api/sports-data`);
+            const data = await response.json();
+            
+            // Update house scores
+            updateHouseScores(data.scores);
+            
+            // Update matches
+            updateMatches(data.matches);
+            
+            // Update last updated time
+            document.getElementById('lastUpdated').textContent = 
+                new Date(data.lastUpdated).toLocaleTimeString();
+                
+        } catch (error) {
+            console.log('Server offline, using local data');
+            loadLocalData();
+        }
+    }
+    
+    function updateHouseScores(scores) {
+        // Update based on your HTML structure
+        const houseElements = document.querySelectorAll('.house-score');
+        if (houseElements.length >= 4) {
+            houseElements[0].textContent = scores.white;  // White
+            houseElements[1].textContent = scores.marron; // Marron
+            houseElements[2].textContent = scores.blue;   // Blue
+            houseElements[3].textContent = scores.yellow; // Yellow
+        }
+    }
+    
+    function updateMatches(matches) {
+        // Update based on your match display structure
+        // You'll need to add IDs or classes to your match elements
+        console.log('Matches updated:', matches);
+    }
+    
+    function loadLocalData() {
+        const savedScores = localStorage.getItem('everestScores');
+        if (savedScores) {
+            updateHouseScores(JSON.parse(savedScores));
+        }
+    }
+    
+    // Load immediately
+    document.addEventListener('DOMContentLoaded', loadLiveData);
+    
+    // Auto-refresh every 10 seconds
+    setInterval(loadLiveData, 10000);
+</script>
+
+
+
 </body>
 </html>
