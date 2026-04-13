@@ -49,6 +49,8 @@
             position: relative;
             z-index: 1;
         }
+       
+<div id="liveNowSection" style="display: none;"></div>
 
         /* ===== HEADER WITH GLASS EFFECT ===== */
         .hero-header {
@@ -881,234 +883,282 @@
             </div>
         </div>
     </div>
-    
     <script>
-        // ===== CONFIGURATION =====
-        const API_URL = 'https://script.google.com/macros/s/AKfycbyFRLlPLpeYJKFC9UPveynUK4wxNN0xZ6P51X0dnuzQQ9cTT1fKqgOTdvm20MplPlpm/exec';
-        let currentGrade = '9';
-        let tournamentData = null;
-        
-        // Houses configuration
-        const houses = [
-            { id: 'maroon', name: 'MARRON', color: '#800000', icon: '⚽️', textColor: 'white' },
-            { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '⚽️', textColor: 'white' },
-            { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '⚽️', textColor: '#333' },
-            { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '⚽️', textColor: '#333' }
-        ];
-        
-        // ===== LOAD DATA =====
-        async function loadData() {
-            try {
-                const response = await fetch(`${API_URL}/api/sports-data`);
-                tournamentData = await response.json();
-                updateLiveSection();
-                renderCurrentGrade();
-                renderTrophies();
-                console.log('✅ Data loaded:', tournamentData);
-            } catch (error) {
-                console.error('Failed to load:', error);
-                // Show fallback data
-                tournamentData = {
-                    competitions: {
-                        grade9: {
-                            maroon: { score: 12, wins: 2 },
-                            blue: { score: 15, wins: 1 },
-                            yellow: { score: 8, wins: 0 },
-                            white: { score: 10, wins: 1 }
-                        },
-                        grade10: {
-                            maroon: { score: 10, wins: 1 },
-                            blue: { score: 12, wins: 2 },
-                            yellow: { score: 14, wins: 1 },
-                            white: { score: 9, wins: 0 }
-                        },
-                        grade11: {
-                            maroon: { score: 15, wins: 2 },
-                            blue: { score: 11, wins: 1 },
-                            yellow: { score: 13, wins: 1 },
-                            white: { score: 8, wins: 0 }
-                        },
-                        grade12: {
-                            maroon: { score: 9, wins: 0 },
-                            blue: { score: 16, wins: 2 },
-                            yellow: { score: 12, wins: 1 },
-                            white: { score: 14, wins: 1 }
-                        }
-                    },
-                    currentMatches: {
-                        grade9: { team1: 'MARRON', team2: 'BLUE', score1: 2, score2: 1, status: 'live' },
-                        grade10: { team1: 'YELLOW', team2: 'WHITE', score1: 0, score2: 0, status: 'upcoming' },
-                        grade11: { team1: 'MARRON', team2: 'YELLOW', score1: 3, score2: 2, status: 'finished' },
-                        grade12: { team1: 'BLUE', team2: 'WHITE', score1: 1, score2: 1, status: 'live' },
-                        live: 'grade12'
-                    },
-                    trophies: {
-                        grade9: 'blue',
-                        grade10: 'maroon',
-                        grade11: 'yellow',
-                        grade12: null
-                    }
-                };
-                updateLiveSection();
-                renderCurrentGrade();
-                renderTrophies();
-            }
-        }
-        
-        // ===== UPDATE LIVE SECTION =====
-        function updateLiveSection() {
-            const liveGrade = tournamentData.currentMatches.live;
-            const liveSection = document.getElementById('liveNowSection');
+    // ===== CONFIGURATION =====
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyFRLlPLpeYJKFC9UPveynUK4wxNN0xZ6P51X0dnuzQQ9cTT1fKqgOTdvm20MplPlpm/exec';
+    let currentGrade = '9';
+    let tournamentData = null;
+    
+    // Houses configuration (4 houses for ALL grades)
+    const houses = [
+        { id: 'maroon', name: 'MARRON', color: '#800000', icon: '🟤' },
+        { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '🔵' },
+        { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '🟡' },
+        { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '⚪' }
+    ];
+    
+    // ===== LOAD DATA FROM GOOGLE SHEETS =====
+    async function loadData() {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            tournamentData = data;
             
-            if (liveGrade) {
-                const match = tournamentData.currentMatches[liveGrade];
-                const gradeNum = liveGrade.replace('grade', '');
-                const API_URL = 'https://script.google.com/macros/s/AKfycbyFRLlPLpeYJKFC9UPveynUK4wxNN0xZ6P51X0dnuzQQ9cTT1fKqgOTdvm20MplPlpm/exec';
-                const ADMIN_PASSWORD = 'everest2026';
-                
-                document.getElementById('liveInfo').innerHTML = `
-                    <h2>⚡ Grade ${gradeNum} • LIVE</h2>
-                    <p>${match.team1} vs ${match.team2}</p>
-                `;
-                document.getElementById('liveScore').textContent = `${match.score1} - ${match.score2}`;
-                liveSection.style.display = 'flex';
-            } else {
-                liveSection.style.display = 'none';
-            }
-        }
-        
-        // ===== SWITCH GRADE =====
-        function switchGrade(grade) {
-            currentGrade = grade;
-            
-            // Update tab styles
-            document.querySelectorAll('.grade-tab').forEach(tab => {
-                tab.classList.remove('active');
-                if (tab.textContent.includes(`Grade ${grade}`)) {
-                    tab.classList.add('active');
-                }
-            });
-            
+            // Update all UI components
+            updateLiveSection();
             renderCurrentGrade();
+            renderTrophies();
+            
+            console.log('✅ Data loaded from Google Sheets:', tournamentData);
+        } catch (error) {
+            console.error('Failed to load from Google Sheets:', error);
+            showFallbackData();
+        }
+    }
+    
+    // ===== FALLBACK DATA (if Google Sheets fails) =====
+    function showFallbackData() {
+        tournamentData = {
+            competitions: {
+                grade9: {
+                    maroon: { score: 0, wins: 0 },
+                    blue: { score: 0, wins: 0 },
+                    yellow: { score: 0, wins: 0 },
+                    white: { score: 0, wins: 0 }
+                },
+                grade10: {
+                    maroon: { score: 0, wins: 0 },
+                    blue: { score: 0, wins: 0 },
+                    yellow: { score: 0, wins: 0 },
+                    white: { score: 0, wins: 0 }
+                },
+                grade11: {
+                    maroon: { score: 0, wins: 0 },
+                    blue: { score: 0, wins: 0 },
+                    yellow: { score: 0, wins: 0 },
+                    white: { score: 0, wins: 0 }
+                },
+                grade12: {
+                    maroon: { score: 0, wins: 0 },
+                    blue: { score: 0, wins: 0 },
+                    yellow: { score: 0, wins: 0 },
+                    white: { score: 0, wins: 0 }
+                }
+            },
+            trophies: {
+                grade9: null,
+                grade10: null,
+                grade11: null,
+                grade12: null
+            }
+        };
+        
+        updateLiveSection();
+        renderCurrentGrade();
+        renderTrophies();
+    }
+    
+    // ===== UPDATE LIVE SECTION =====
+    function updateLiveSection() {
+        // Find which grade has a live match (if any)
+        let liveGrade = null;
+        let liveMatch = null;
+        
+        if (tournamentData && tournamentData.currentMatches) {
+            for (let grade of ['9', '10', '11', '12']) {
+                const match = tournamentData.currentMatches[`grade${grade}`];
+                if (match && match.status === 'live') {
+                    liveGrade = grade;
+                    liveMatch = match;
+                    break;
+                }
+            }
         }
         
-        // ===== RENDER CURRENT GRADE =====
-        function renderCurrentGrade() {
-            if (!tournamentData) return;
-            
-            const gradeData = tournamentData.competitions[`grade${currentGrade}`];
-            
-            // Render houses
-            let housesHtml = '';
-            
-            houses.forEach((house, index) => {
-                const houseData = gradeData[house.id];
-                housesHtml += `
-                    <div class="house-card house-${house.id}" style="animation-delay: ${index * 0.1}s; border-top-color: ${house.color}; background: ${house.id === 'white' ? 'rgba(245,245,245,0.95)' : 'rgba(255,255,255,0.95)'}">
-                        <div class="house-header">
-                            <span class="house-name" style="color: ${house.id === 'yellow' ? '#333' : '#1e3c72'}">${house.name}</span>
-                            <span class="house-icon">${house.icon}</span>
-                        </div>
-                        <div class="score-display">
-                            <span class="score-number">${houseData.score}</span>
-                            <div class="score-label">POINTS</div>
-                        </div>
-                        <div class="wins-badge">
-                            <i class="fas fa-trophy"></i> ${houseData.wins} ${houseData.wins === 1 ? 'WIN' : 'WINS'}
-                        </div>
+        const liveSection = document.getElementById('liveNowSection');
+        
+        if (liveGrade && liveMatch) {
+            const liveHtml = `
+                <div class="live-now" id="liveNowSection" style="display: flex;">
+                    <div class="live-badge">🔴 LIVE NOW</div>
+                    <div class="live-info">
+                        <h2>⚡ Grade ${liveGrade} • ${liveMatch.team1} vs ${liveMatch.team2}</h2>
+                        <p>${liveMatch.team1} fighting for victory!</p>
                     </div>
-                `;
-            });
-            
-            document.getElementById('housesContainer').innerHTML = housesHtml;
-            
-            // Render match showcase
-            const match = tournamentData.currentMatches[`grade${currentGrade}`];
-            const isLive = tournamentData.currentMatches.live === `grade${currentGrade}`;
-            
-            const matchHtml = `
-                <div class="match-header">
-                    <h2><i class="fas fa-futbol"></i> Grade ${currentGrade} Match</h2>
-                    <span class="match-status-badge" style="background: ${isLive ? 'linear-gradient(135deg, #ff4444, #cc0000)' : 'linear-gradient(135deg, #1e3c72, #2a5298)'}">
-                        ${isLive ? '🔴 LIVE NOW' : match.status === 'finished' ? '✅ FINISHED' : '⏰ UPCOMING'}
-                    </span>
-                </div>
-                <div class="match-teams">
-                    <div class="team">
-                        <div class="team-icon">${houses.find(h => h.name === match.team1)?.icon || '⚽️'}</div>
-                        <div class="team-name" style="color: ${houses.find(h => h.name === match.team1)?.color || '#800000'}">${match.team1}</div>
-                        <div class="team-score">${match.score1}</div>
-                    </div>
-                    <div class="versus">VS</div>
-                    <div class="team">
-                        <div class="team-icon">${houses.find(h => h.name === match.team2)?.icon || '⚽️'}</div>
-                        <div class="team-name" style="color: ${houses.find(h => h.name === match.team2)?.color || '#0000ff'}">${match.team2}</div>
-                        <div class="team-score">${match.score2}</div>
-                    </div>
+                    <div class="live-score">${liveMatch.score1} - ${liveMatch.score2}</div>
                 </div>
             `;
-            
-            document.getElementById('matchShowcase').innerHTML = matchHtml;
+            // Insert at the top of the container
+            const container = document.querySelector('.container');
+            const existingLive = document.getElementById('liveNowSection');
+            if (existingLive) existingLive.remove();
+            container.insertAdjacentHTML('afterbegin', liveHtml);
+        } else {
+            const existingLive = document.getElementById('liveNowSection');
+            if (existingLive) existingLive.remove();
         }
+    }
+    
+    // ===== SWITCH GRADE =====
+    function switchGrade(grade) {
+        currentGrade = grade;
         
-        // ===== RENDER TROPHIES =====
-        function renderTrophies() {
-            if (!tournamentData) return;
-            
-            let trophyHtml = '';
-            const grades = ['9', '10', '11', '12'];
-            
-            grades.forEach((grade, index) => {
-                const winner = tournamentData.trophies[`grade${grade}`];
-                const winnerHouse = houses.find(h => h.id === winner);
-                
-                trophyHtml += `
-                    <div class="trophy-card" style="animation-delay: ${index * 0.1}s">
-                        <h3>Grade ${grade}</h3>
-                        <div class="trophy-icon">${winnerHouse ? winnerHouse.icon : '🏆'}</div>
-                        <div class="winner-name">${winnerHouse ? winnerHouse.name : 'TBD'}</div>
-                        ${winnerHouse ? 
-                            `<div class="winner-badge" style="background: ${winnerHouse.color}">CHAMPION</div>` : 
-                            `<div class="winner-badge" style="background: #666">UPCOMING</div>`
-                        }
-                    </div>
-                `;
-            });
-            
-            document.getElementById('trophyGrid').innerHTML = trophyHtml;
-        }
-        
-        // ===== CHAT FUNCTIONS =====
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (message) {
-                const chat = document.getElementById('chatMessages');
-                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message';
-                messageDiv.innerHTML = `<strong>👤 You:</strong> ${message} <small>${time}</small>`;
-                
-                chat.appendChild(messageDiv);
-                chat.scrollTop = chat.scrollHeight;
-                input.value = '';
-            }
-        }
-        
-        // Enter key to send
-        document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
+        // Update tab styles
+        document.querySelectorAll('.grade-tab').forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.textContent.includes(`Grade ${grade}`)) {
+                tab.classList.add('active');
             }
         });
         
-        // ===== AUTO-REFRESH =====
-        setInterval(loadData, 10000); // Refresh every 10 seconds
+        renderCurrentGrade();
+    }
+    
+    // ===== RENDER HOUSES FOR CURRENT GRADE =====
+    function renderCurrentGrade() {
+        if (!tournamentData) return;
         
-        // ===== INITIAL LOAD =====
-        document.addEventListener('DOMContentLoaded', loadData);
-    </script>
+        const gradeData = tournamentData.competitions[`grade${currentGrade}`];
+        if (!gradeData) return;
+        
+        let housesHtml = '';
+        
+        houses.forEach((house, index) => {
+            const houseData = gradeData[house.id] || { score: 0, wins: 0 };
+            housesHtml += `
+                <div class="house-card house-${house.id}" style="animation-delay: ${index * 0.1}s; border-top-color: ${house.color}; background: ${house.id === 'white' ? 'rgba(245,245,245,0.95)' : 'rgba(255,255,255,0.95)'}">
+                    <div class="house-header">
+                        <span class="house-name" style="color: ${house.id === 'yellow' ? '#333' : '#1e3c72'}">${house.name}</span>
+                        <span class="house-icon">${house.icon}</span>
+                    </div>
+                    <div class="score-display">
+                        <span class="score-number">${houseData.score || 0}</span>
+                        <div class="score-label">POINTS</div>
+                    </div>
+                    <div class="wins-badge">
+                        <i class="fas fa-trophy"></i> ${houseData.wins || 0} ${(houseData.wins || 0) === 1 ? 'WIN' : 'WINS'}
+                    </div>
+                </div>
+            `;
+        });
+        
+        document.getElementById('housesContainer').innerHTML = housesHtml;
+        
+        // Render match showcase if match data exists
+        renderMatchShowcase();
+    }
+    
+    // ===== RENDER MATCH SHOWCASE =====
+    function renderMatchShowcase() {
+        if (!tournamentData || !tournamentData.currentMatches) return;
+        
+        const match = tournamentData.currentMatches[`grade${currentGrade}`];
+        if (!match) return;
+        
+        const isLive = match.status === 'live';
+        
+        const matchHtml = `
+            <div class="match-header">
+                <h2><i class="fas fa-futbol"></i> Grade ${currentGrade} Match</h2>
+                <span class="match-status-badge" style="background: ${isLive ? 'linear-gradient(135deg, #ff4444, #cc0000)' : 'linear-gradient(135deg, #1e3c72, #2a5298)'}">
+                    ${isLive ? '🔴 LIVE NOW' : match.status === 'finished' ? '✅ FINISHED' : '⏰ UPCOMING'}
+                </span>
+            </div>
+            <div class="match-teams">
+                <div class="team">
+                    <div class="team-icon">${houses.find(h => h.name === match.team1)?.icon || '⚽️'}</div>
+                    <div class="team-name" style="color: ${houses.find(h => h.name === match.team1)?.color || '#800000'}">${match.team1}</div>
+                    <div class="team-score">${match.score1 || 0}</div>
+                </div>
+                <div class="versus">VS</div>
+                <div class="team">
+                    <div class="team-icon">${houses.find(h => h.name === match.team2)?.icon || '⚽️'}</div>
+                    <div class="team-name" style="color: ${houses.find(h => h.name === match.team2)?.color || '#0000ff'}">${match.team2}</div>
+                    <div class="team-score">${match.score2 || 0}</div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('matchShowcase').innerHTML = matchHtml;
+    }
+    
+    // ===== RENDER TROPHY WINNERS =====
+    function renderTrophies() {
+        if (!tournamentData) return;
+        
+        let trophyHtml = '';
+        const grades = ['9', '10', '11', '12'];
+        
+        grades.forEach((grade, index) => {
+            const winner = tournamentData.trophies ? tournamentData.trophies[`grade${grade}`] : null;
+            const winnerHouse = houses.find(h => h.id === winner);
+            
+            trophyHtml += `
+                <div class="trophy-card" style="animation-delay: ${index * 0.1}s">
+                    <h3>Grade ${grade}</h3>
+                    <div class="trophy-icon">${winnerHouse ? winnerHouse.icon : '🏆'}</div>
+                    <div class="winner-name">${winnerHouse ? winnerHouse.name : 'TBD'}</div>
+                    ${winnerHouse ? 
+                        `<div class="winner-badge" style="background: ${winnerHouse.color}">CHAMPION</div>` : 
+                        `<div class="winner-badge" style="background: #666">UPCOMING</div>`
+                    }
+                </div>
+            `;
+        });
+        
+        const trophyGrid = document.getElementById('trophyGrid');
+        if (trophyGrid) trophyGrid.innerHTML = trophyHtml;
+    }
+    
+    // ===== CHAT FUNCTIONS =====
+    function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        
+        if (message) {
+            const chat = document.getElementById('chatMessages');
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `<strong>👤 You:</strong> ${escapeHtml(message)} <small>${time}</small>`;
+            
+            chat.appendChild(messageDiv);
+            chat.scrollTop = chat.scrollHeight;
+            input.value = '';
+        }
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Enter key to send
+    document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    // ===== AUTO-REFRESH EVERY 10 SECONDS =====
+    setInterval(loadData, 10000);
+    
+    // ===== INITIAL LOAD =====
+    document.addEventListener('DOMContentLoaded', () => {
+        loadData();
+        
+        // Add live section placeholder if needed
+        if (!document.getElementById('liveNowSection')) {
+            const container = document.querySelector('.container');
+            const heroHeader = document.querySelector('.hero-header');
+            const liveDiv = document.createElement('div');
+            liveDiv.id = 'liveNowSection';
+            liveDiv.style.display = 'none';
+            container.insertBefore(liveDiv, heroHeader.nextSibling);
+        }
+    });
+</script>
 </body>
 </html>
