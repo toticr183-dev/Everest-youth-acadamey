@@ -802,6 +802,9 @@
         }
     </style>
 </head>
+    <div id="liveStatus" style="position: fixed; bottom: 20px; right: 20px; background: #1e3c72; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; z-index: 9999;">
+    🔄 Connecting...
+</div>
 <body>
     <div class="container">
         
@@ -888,11 +891,10 @@
     </div>
     <script>
     // ===== CONFIGURATION =====
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzmfnLQOBLoXx_wBrbkpSP6mEEzou_Qs0r0ubP3ROmzLTBS_niDX7L__tjrrCC4w9Hq/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzEg5KRviip-wJvuVgf54lTqvQS0kvjToD-bOWx3frccuZx_L0nGbZwgk30tTEFnfc8/exec';
     let currentGrade = '9';
     let tournamentData = null;
     
-    // Houses configuration (4 houses for ALL grades)
     const houses = [
         { id: 'maroon', name: 'MARRON', color: '#800000', icon: '🟤' },
         { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '🔵' },
@@ -900,128 +902,71 @@
         { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '⚪' }
     ];
     
-   async function loadData() {
-    try {
-        console.log('Fetching from:', API_URL);
-        
-        const response = await fetch(API_URL, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
+    // ===== LOAD DATA FROM GOOGLE SHEETS =====
+    async function loadData() {
+        try {
+            console.log('🔍 Fetching from:', API_URL);
+            
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            
+            console.log('📦 Raw data received:', data);
+            
+            // Check if data has competitions
+            if (!data.competitions) {
+                console.error('❌ No competitions in response');
+                showStatus('❌ Invalid data format', 3000);
+                return;
             }
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            
+            tournamentData = data;
+            console.log('✅ Tournament data loaded:', tournamentData);
+            
+            // Update all UI components
+            updateLiveSection();
+            renderCurrentGrade();
+            renderTrophies();
+            
+            showStatus('✅ Live scores updated!', 2000);
+            
+        } catch (error) {
+            console.error('❌ Fetch error:', error);
+            showStatus('⚠️ Connecting to server...', 3000);
         }
-        
-        const data = await response.json();
-        console.log('Data received:', data);
-        
-        tournamentData = data;
-        updateLiveSection();
-        renderCurrentGrade();
-        renderTrophies();
-        showStatus('✅ Live scores updated!', 2000);
-        
-    } catch (error) {
-        console.error('Failed to load:', error);
-        showStatus('⚠️ Connecting to server...', 3000);
-        showFallbackData();
-    }
-}
-
-function showStatus(message, duration) {
-    const statusDiv = document.getElementById('liveUpdateStatus');
-    if (statusDiv) {
-        statusDiv.textContent = message;
-        statusDiv.style.opacity = '1';
-        setTimeout(() => {
-            statusDiv.style.opacity = '0';
-        }, duration);
-    }
-}
-    // ===== FALLBACK DATA (if Google Sheets fails) =====
-    function showFallbackData() {
-        tournamentData = {
-            competitions: {
-                grade9: {
-                    maroon: { score: 0, wins: 0 },
-                    blue: { score: 0, wins: 0 },
-                    yellow: { score: 0, wins: 0 },
-                    white: { score: 0, wins: 0 }
-                },
-                grade10: {
-                    maroon: { score: 0, wins: 0 },
-                    blue: { score: 0, wins: 0 },
-                    yellow: { score: 0, wins: 0 },
-                    white: { score: 0, wins: 0 }
-                },
-                grade11: {
-                    maroon: { score: 0, wins: 0 },
-                    blue: { score: 0, wins: 0 },
-                    yellow: { score: 0, wins: 0 },
-                    white: { score: 0, wins: 0 }
-                },
-                grade12: {
-                    maroon: { score: 0, wins: 0 },
-                    blue: { score: 0, wins: 0 },
-                    yellow: { score: 0, wins: 0 },
-                    white: { score: 0, wins: 0 }
-                }
-            },
-            trophies: {
-                grade9: null,
-                grade10: null,
-                grade11: null,
-                grade12: null
-            }
-        };
-        
-        updateLiveSection();
-        renderCurrentGrade();
-        renderTrophies();
     }
     
     // ===== UPDATE LIVE SECTION =====
     function updateLiveSection() {
-        // Find which grade has a live match (if any)
+        // Check if tournamentData and currentMatches exist
+        if (!tournamentData || !tournamentData.currentMatches) return;
+        
         let liveGrade = null;
         let liveMatch = null;
         
-        if (tournamentData && tournamentData.currentMatches) {
-            for (let grade of ['9', '10', '11', '12']) {
-                const match = tournamentData.currentMatches[`grade${grade}`];
-                if (match && match.status === 'live') {
-                    liveGrade = grade;
-                    liveMatch = match;
-                    break;
-                }
+        for (let grade of ['9', '10', '11', '12']) {
+            const match = tournamentData.currentMatches[`grade${grade}`];
+            if (match && match.status === 'live') {
+                liveGrade = grade;
+                liveMatch = match;
+                break;
             }
         }
         
         const liveSection = document.getElementById('liveNowSection');
+        if (!liveSection) return;
         
         if (liveGrade && liveMatch) {
-            const liveHtml = `
-                <div class="live-now" id="liveNowSection" style="display: flex;">
-                    <div class="live-badge">🔴 LIVE NOW</div>
-                    <div class="live-info">
-                        <h2>⚡ Grade ${liveGrade} • ${liveMatch.team1} vs ${liveMatch.team2}</h2>
-                        <p>${liveMatch.team1} fighting for victory!</p>
-                    </div>
-                    <div class="live-score">${liveMatch.score1} - ${liveMatch.score2}</div>
+            liveSection.style.display = 'flex';
+            liveSection.innerHTML = `
+                <div class="live-badge">🔴 LIVE NOW</div>
+                <div class="live-info">
+                    <h2>⚡ Grade ${liveGrade} • ${liveMatch.team1} vs ${liveMatch.team2}</h2>
+                    <p>${liveMatch.team1} fighting for victory!</p>
                 </div>
+                <div class="live-score">${liveMatch.score1} - ${liveMatch.score2}</div>
             `;
-            // Insert at the top of the container
-            const container = document.querySelector('.container');
-            const existingLive = document.getElementById('liveNowSection');
-            if (existingLive) existingLive.remove();
-            container.insertAdjacentHTML('afterbegin', liveHtml);
         } else {
-            const existingLive = document.getElementById('liveNowSection');
-            if (existingLive) existingLive.remove();
+            liveSection.style.display = 'none';
         }
     }
     
@@ -1029,7 +974,6 @@ function showStatus(message, duration) {
     function switchGrade(grade) {
         currentGrade = grade;
         
-        // Update tab styles
         document.querySelectorAll('.grade-tab').forEach(tab => {
             tab.classList.remove('active');
             if (tab.textContent.includes(`Grade ${grade}`)) {
@@ -1040,21 +984,29 @@ function showStatus(message, duration) {
         renderCurrentGrade();
     }
     
-    // ===== RENDER HOUSES FOR CURRENT GRADE =====
+    // ===== RENDER CURRENT GRADE =====
     function renderCurrentGrade() {
-        if (!tournamentData) return;
+        if (!tournamentData) {
+            console.log('Waiting for data...');
+            return;
+        }
         
-        const gradeData = tournamentData.competitions[`grade${currentGrade}`];
-        if (!gradeData) return;
+        const gradeKey = `grade${currentGrade}`;
+        const gradeData = tournamentData.competitions[gradeKey];
         
-        let housesHtml = '';
+        if (!gradeData) {
+            console.error(`No data for ${gradeKey}`);
+            return;
+        }
+        
+        let housesHtml = '<div class="houses-grid">';
         
         houses.forEach((house, index) => {
             const houseData = gradeData[house.id] || { score: 0, wins: 0 };
             housesHtml += `
-                <div class="house-card house-${house.id}" style="animation-delay: ${index * 0.1}s; border-top-color: ${house.color}; background: ${house.id === 'white' ? 'rgba(245,245,245,0.95)' : 'rgba(255,255,255,0.95)'}">
+                <div class="house-card house-${house.id}" style="animation-delay: ${index * 0.1}s; border-top-color: ${house.color}">
                     <div class="house-header">
-                        <span class="house-name" style="color: ${house.id === 'yellow' ? '#333' : '#1e3c72'}">${house.name}</span>
+                        <span class="house-name">${house.name}</span>
                         <span class="house-icon">${house.icon}</span>
                     </div>
                     <div class="score-display">
@@ -1068,9 +1020,11 @@ function showStatus(message, duration) {
             `;
         });
         
-        document.getElementById('housesContainer').innerHTML = housesHtml;
+        housesHtml += '</div>';
+        const housesContainer = document.getElementById('housesContainer');
+        if (housesContainer) housesContainer.innerHTML = housesHtml;
         
-        // Render match showcase if match data exists
+        // Render match showcase
         renderMatchShowcase();
     }
     
@@ -1105,18 +1059,19 @@ function showStatus(message, duration) {
             </div>
         `;
         
-        document.getElementById('matchShowcase').innerHTML = matchHtml;
+        const matchShowcase = document.getElementById('matchShowcase');
+        if (matchShowcase) matchShowcase.innerHTML = matchHtml;
     }
     
-    // ===== RENDER TROPHY WINNERS =====
+    // ===== RENDER TROPHIES =====
     function renderTrophies() {
-        if (!tournamentData) return;
+        if (!tournamentData || !tournamentData.trophies) return;
         
         let trophyHtml = '';
         const grades = ['9', '10', '11', '12'];
         
         grades.forEach((grade, index) => {
-            const winner = tournamentData.trophies ? tournamentData.trophies[`grade${grade}`] : null;
+            const winner = tournamentData.trophies[`grade${grade}`];
             const winnerHouse = houses.find(h => h.id === winner);
             
             trophyHtml += `
@@ -1134,6 +1089,18 @@ function showStatus(message, duration) {
         
         const trophyGrid = document.getElementById('trophyGrid');
         if (trophyGrid) trophyGrid.innerHTML = trophyHtml;
+    }
+    
+    // ===== SHOW STATUS =====
+    function showStatus(message, duration = 2000) {
+        const statusDiv = document.getElementById('liveStatus');
+        if (statusDiv) {
+            statusDiv.innerHTML = message;
+            statusDiv.style.opacity = '1';
+            setTimeout(() => {
+                statusDiv.style.opacity = '0.7';
+            }, duration);
+        }
     }
     
     // ===== CHAT FUNCTIONS =====
@@ -1161,29 +1128,13 @@ function showStatus(message, duration) {
         return div.innerHTML;
     }
     
-    // Enter key to send
-    document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-    
-    // ===== AUTO-REFRESH EVERY 10 SECONDS =====
+    // ===== AUTO-REFRESH =====
     setInterval(loadData, 10000);
     
     // ===== INITIAL LOAD =====
     document.addEventListener('DOMContentLoaded', () => {
+        console.log('Page loaded, fetching data...');
         loadData();
-        
-        // Add live section placeholder if needed
-        if (!document.getElementById('liveNowSection')) {
-            const container = document.querySelector('.container');
-            const heroHeader = document.querySelector('.hero-header');
-            const liveDiv = document.createElement('div');
-            liveDiv.id = 'liveNowSection';
-            liveDiv.style.display = 'none';
-            container.insertBefore(liveDiv, heroHeader.nextSibling);
-        }
     });
 </script>
 </body>
