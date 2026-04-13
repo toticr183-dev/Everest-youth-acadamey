@@ -629,345 +629,177 @@
             </div>
         </div>
     </div>
-    
     <script>
-        // ===== CONFIGURATION =====
-        const API_URL = 'https://everest-youth-acadamey.onrender.com';
-        const ADMIN_PASSWORD = 'everest2026';
-        
-        // ===== STATE =====
-        let currentGrade = '9';
-        let tournamentData = null;
-        
-        // Houses configuration
-        const houses = [
-            { id: 'maroon', name: 'MARRON', color: '#800000', icon: '⚽️', textColor: 'white' },
-            { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '⚽️', textColor: 'white' },
-            { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '⚽️', textColor: '#333' },
-            { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '⚽️', textColor: '#333' }
-        ];
-        
-        // ===== LOGIN =====
-        function login() {
-            const password = document.getElementById('password').value;
-            
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('adminDashboard').style.display = 'block';
-                loadData();
-            } else {
-                document.getElementById('loginError').textContent = '❌ Incorrect password';
-            }
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzP_IPnHDmaDm5uF2LKvheiNu22dgXHobPxAq2BwSIOeeWSyZuKw9rgiEwsvSW24rwL/exec';
+    const ADMIN_PASSWORD = 'everest2026';
+    
+    let currentGrade = '9';
+    let tournamentData = null;
+    
+    const houses = [
+        { id: 'maroon', name: 'MARRON', color: '#800000', icon: '🟤' },
+        { id: 'blue', name: 'BLUE', color: '#0000ff', icon: '🔵' },
+        { id: 'yellow', name: 'YELLOW', color: '#ffcc00', icon: '🟡' },
+        { id: 'white', name: 'WHITE', color: '#f5f5f5', icon: '⚪' }
+    ];
+    
+    function login() {
+        if (document.getElementById('password').value === ADMIN_PASSWORD) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadData();
+        } else {
+            document.getElementById('loginError').textContent = '❌ Incorrect password';
         }
-        
-        function logout() {
-            document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('adminDashboard').style.display = 'none';
-            document.getElementById('password').value = '';
-            document.getElementById('loginError').textContent = '';
-        }
-        
-        // ===== LOAD DATA =====
-        async function loadData() {
-            try {
-                const response = await fetch(`${API_URL}/api/sports-data`);
-                tournamentData = await response.json();
-                renderCurrentGrade();
-                renderTrophies();
-                showStatus('✅ Data loaded from server');
-            } catch (error) {
-                console.error('Failed to load:', error);
-                showStatus('❌ Server connection failed', 3000);
-            }
-        }
-        
-        // ===== SWITCH GRADE =====
-        function switchGrade(grade) {
-            currentGrade = grade;
-            
-            // Update tab styles
-            document.querySelectorAll('.grade-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
+    }
+    
+    function logout() {
+        document.getElementById('loginScreen').style.display = 'block';
+        document.getElementById('adminDashboard').style.display = 'none';
+    }
+    
+    async function loadData() {
+        try {
+            const response = await fetch(API_URL);
+            tournamentData = await response.json();
             renderCurrentGrade();
+            renderTrophies();
+            showStatus('✅ Data loaded from Google Sheets');
+        } catch (error) {
+            console.error(error);
+            showStatus('❌ Failed to load data', 3000);
         }
+    }
+    
+    function switchGrade(grade) {
+        currentGrade = grade;
+        document.querySelectorAll('.grade-tab').forEach(tab => tab.classList.remove('active'));
+        event.target.classList.add('active');
+        renderCurrentGrade();
+    }
+    
+    function renderCurrentGrade() {
+        if (!tournamentData) return;
         
-        // ===== RENDER HOUSES FOR CURRENT GRADE =====
-        function renderCurrentGrade() {
-            if (!tournamentData) return;
-            
-            const gradeData = tournamentData.competitions[`grade${currentGrade}`];
-            const matchData = tournamentData.currentMatches[`grade${currentGrade}`];
-            const isLive = tournamentData.currentMatches.live === `grade${currentGrade}`;
-            
-            // Render houses
-            let housesHtml = '<div class="houses-grid">';
-            
-            houses.forEach(house => {
-                const houseData = gradeData[house.id];
-                housesHtml += `
-                    <div class="house-card house-${house.id}" style="border-top-color: ${house.color}; background: ${house.id === 'white' ? '#f5f5f5' : 'white'}">
-                        <div class="house-header">
-                            <span class="house-name" style="color: ${house.id === 'yellow' ? '#333' : 'inherit'}">${house.name}</span>
-                            <span class="house-icon">${house.icon}</span>
-                        </div>
-                        <div class="score-control">
-                            <button class="score-btn minus" onclick="updateScore('${house.id}', -1)">−</button>
-                            <span class="score-value" id="score-${currentGrade}-${house.id}">${houseData.score}</span>
-                            <button class="score-btn plus" onclick="updateScore('${house.id}', 1)">+</button>
-                        </div>
-                        <div class="wins-badge">
-                            <i class="fas fa-trophy"></i> Wins: ${houseData.wins}
-                        </div>
+        const gradeData = tournamentData.competitions[`grade${currentGrade}`];
+        
+        let housesHtml = '<div class="houses-grid">';
+        houses.forEach(house => {
+            const data = gradeData[house.id];
+            housesHtml += `
+                <div class="house-card house-${house.id}" style="border-top-color: ${house.color}">
+                    <div class="house-header">
+                        <span class="house-name">${house.name}</span>
+                        <span class="house-icon">${house.icon}</span>
                     </div>
-                `;
-            });
-            
-            housesHtml += '</div>';
-            document.getElementById('housesContainer').innerHTML = housesHtml;
-            
-            // Render match control
-            const matchHtml = `
-                <h2><i class="fas fa-futbol"></i> Grade ${currentGrade} Match</h2>
-                <div class="match-control">
-                    <div class="match-card ${isLive ? 'live' : ''}">
-                        <div class="match-teams">
-                            <select id="match-team1" class="team-select">
-                                <option value="maroon" ${matchData.team1 === 'MARRON' ? 'selected' : ''}>MARRON</option>
-                                <option value="blue" ${matchData.team1 === 'BLUE' ? 'selected' : ''}>BLUE</option>
-                                <option value="yellow" ${matchData.team1 === 'YELLOW' ? 'selected' : ''}>YELLOW</option>
-                                <option value="white" ${matchData.team1 === 'WHITE' ? 'selected' : ''}>WHITE</option>
-                            </select>
-                            <span class="vs">VS</span>
-                            <select id="match-team2" class="team-select">
-                                <option value="maroon" ${matchData.team2 === 'MARRON' ? 'selected' : ''}>MARRON</option>
-                                <option value="blue" ${matchData.team2 === 'BLUE' ? 'selected' : ''}>BLUE</option>
-                                <option value="yellow" ${matchData.team2 === 'YELLOW' ? 'selected' : ''}>YELLOW</option>
-                                <option value="white" ${matchData.team2 === 'WHITE' ? 'selected' : ''}>WHITE</option>
-                            </select>
-                        </div>
-                        <div class="match-score-input">
-                            <input type="number" id="match-score1" class="score-input" value="${matchData.score1 || 0}" min="0">
-                            <span style="font-size: 1.5rem;">-</span>
-                            <input type="number" id="match-score2" class="score-input" value="${matchData.score2 || 0}" min="0">
-                        </div>
-                        <select id="match-status" class="match-status-select">
-                            <option value="upcoming" ${matchData.status === 'upcoming' ? 'selected' : ''}>⏰ Upcoming</option>
-                            <option value="live" ${matchData.status === 'live' ? 'selected' : ''}>🔴 LIVE NOW</option>
-                            <option value="finished" ${matchData.status === 'finished' ? 'selected' : ''}>✅ Finished</option>
-                        </select>
-                        <button onclick="updateMatch()" class="update-match-btn">Update Match</button>
+                    <div class="score-control">
+                        <button class="score-btn minus" onclick="updateScore('${house.id}', -1)">−</button>
+                        <span class="score-value" id="score-${currentGrade}-${house.id}">${data.score}</span>
+                        <button class="score-btn plus" onclick="updateScore('${house.id}', 1)">+</button>
                     </div>
-                    <div style="background: #f8f9fa; border-radius: 15px; padding: 20px;">
-                        <h3 style="margin-bottom: 15px;">Quick Stats</h3>
-                        <p>Total matches: ${gradeData.matches?.length || 0}</p>
-                        <p>Current leader: ${getCurrentLeader(gradeData)}</p>
+                    <div class="wins-badge">
+                        <i class="fas fa-trophy"></i> Wins: ${data.wins}
                     </div>
                 </div>
             `;
-            
-            document.getElementById('matchSection').innerHTML = matchHtml;
-        }
-        
-        function getCurrentLeader(gradeData) {
-            let maxScore = 0;
-            let leader = 'None';
-            
-            houses.forEach(house => {
-                if (gradeData[house.id].score > maxScore) {
-                    maxScore = gradeData[house.id].score;
-                    leader = house.name;
-                }
-            });
-            
-            return maxScore > 0 ? `${leader} (${maxScore} pts)` : 'No scores yet';
-        }
-        
-        // ===== RENDER TROPHIES =====
-        function renderTrophies() {
-            if (!tournamentData) return;
-            
-            let trophyHtml = '';
-            
-            ['9', '10', '11', '12'].forEach(grade => {
-                const winner = tournamentData.trophies[`grade${grade}`];
-                trophyHtml += `
-                    <div class="trophy-card">
-                        <h3>Grade ${grade}</h3>
-                        <i class="fas fa-crown" style="font-size: 2rem; color: #ffd700; margin-bottom: 10px;"></i>
-                        <div style="font-size: 1.2rem; margin-bottom: 10px;">
-                            ${winner ? houses.find(h => h.id === winner)?.icon : '🏆'} ${winner ? winner.toUpperCase() : 'No winner'}
-                        </div>
-                        <select id="winner-${grade}" class="trophy-select">
-                            <option value="">Select winner</option>
-                            ${houses.map(h => `<option value="${h.id}" ${winner === h.id ? 'selected' : ''}>${h.name}</option>`).join('')}
-                        </select>
-                        <button onclick="declareWinner('${grade}')" class="declare-winner-btn">Declare Winner</button>
-                    </div>
-                `;
-            });
-            
-            document.getElementById('trophyGrid').innerHTML = trophyHtml;
-        }
-        
-        // ===== UPDATE SCORE =====
-        async function updateScore(house, change) {
-            const scoreElement = document.getElementById(`score-${currentGrade}-${house}`);
-            let currentScore = parseInt(scoreElement.textContent);
-            currentScore = Math.max(0, currentScore + change);
-            scoreElement.textContent = currentScore;
-            
-            // Update local data
-            tournamentData.competitions[`grade${currentGrade}`][house].score = currentScore;
-        }
-        
-        // ===== UPDATE MATCH =====
-        async function updateMatch() {
-            const team1 = document.getElementById('match-team1').value;
-            const team2 = document.getElementById('match-team2').value;
-            const score1 = parseInt(document.getElementById('match-score1').value);
-            const score2 = parseInt(document.getElementById('match-score2').value);
-            const status = document.getElementById('match-status').value;
-            const API_URL = 'https://everest-youth-acadamey.onrender.com';
-            const ADMIN_PASSWORD = 'everest2026';
-            
-            const matchData = {
-                team1: houses.find(h => h.id === team1).name,
-                team2: houses.find(h => h.id === team2).name,
-                score1,
-                score2,
-                status
-            };
-            
-            tournamentData.currentMatches[`grade${currentGrade}`] = matchData;
-            
-            if (status === 'live') {
-                tournamentData.currentMatches.live = `grade${currentGrade}`;
-            }
-            
-            renderCurrentGrade();
-            showStatus('Match updated locally');
-        }
-        
-        // ===== DECLARE WINNER =====
-        async function declareWinner(grade) {
-            const winner = document.getElementById(`winner-${grade}`).value;
-            
-            if (!winner) {
-                alert('Please select a winner');
-                return;
-            }
-            
-            tournamentData.trophies[`grade${grade}`] = winner;
-            
-            // Add win count
-            tournamentData.competitions[`grade${grade}`][winner].wins += 1;
-            
-            renderTrophies();
-            showStatus(`Grade ${grade} winner: ${winner.toUpperCase()}`);
-        }
-        
-        // ===== RESET GRADE =====
-        async function resetGrade(grade) {
-            if (!confirm(`Reset all scores for Grade ${grade}?`)) return;
-            
-            ['maroon', 'blue', 'yellow', 'white'].forEach(house => {
-                tournamentData.competitions[`grade${grade}`][house] = { score: 0, wins: 0, matches: [] };
-            });
-            
-            tournamentData.currentMatches[`grade${grade}`] = {
-                team1: 'MARRON',
-                team2: 'BLUE',
-                score1: 0,
-                score2: 0,
-                status: 'upcoming'
-            };
-            
-            tournamentData.trophies[`grade${grade}`] = null;
-            
-            if (currentGrade === grade) {
-                renderCurrentGrade();
-            }
-            renderTrophies();
-            showStatus(`Grade ${grade} reset`);
-        }
-        
-        // ===== RESET ALL =====
-        async function resetAll() {
-            if (!confirm('⚠️ Reset ENTIRE tournament? This cannot be undone!')) return;
-            
-            const response = await fetch(`${API_URL}/api/reset-all`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: ADMIN_PASSWORD })
-            });
-            
-            if (response.ok) {
-                await loadData();
-                showStatus('Tournament completely reset');
-            }
-        }
-        
-        // ===== SAVE TO SERVER =====
-        async function saveToServer() {
-            try {
-                // Save scores
-                await fetch(`${API_URL}/api/update-scores`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        password: ADMIN_PASSWORD,
-                        scores: tournamentData.competitions
-                    })
-                });
-                
-                // Save matches
-                await fetch(`${API_URL}/api/update-matches`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        password: ADMIN_PASSWORD,
-                        matches: tournamentData.currentMatches
-                    })
-                });
-                
-                // Save trophies
-                await fetch(`${API_URL}/api/update-trophies`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        password: ADMIN_PASSWORD,
-                        trophies: tournamentData.trophies
-                    })
-                });
-                
-                showStatus('✅ All changes saved to cloud!');
-            } catch (error) {
-                console.error('Save failed:', error);
-                showStatus('❌ Save failed', 3000);
-            }
-        }
-        
-        // ===== SHOW STATUS =====
-        function showStatus(message, duration = 2000) {
-            const status = document.getElementById('saveStatus');
-            status.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
-            status.style.display = 'block';
-            
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, duration);
-        }
-        
-        // Auto-save warning
-        window.addEventListener('beforeunload', function(e) {
-            if (tournamentData) {
-                e.preventDefault();
-                e.returnValue = 'You have unsaved changes. Save before leaving?';
-            }
         });
-    </script>
+        housesHtml += '</div>';
+        document.getElementById('housesContainer').innerHTML = housesHtml;
+    }
+    
+    function updateScore(house, change) {
+        const scoreElement = document.getElementById(`score-${currentGrade}-${house}`);
+        let currentScore = parseInt(scoreElement.textContent);
+        currentScore = Math.max(0, currentScore + change);
+        scoreElement.textContent = currentScore;
+        tournamentData.competitions[`grade${currentGrade}`][house].score = currentScore;
+    }
+    
+    function renderTrophies() {
+        let trophyHtml = '';
+        ['9', '10', '11', '12'].forEach(grade => {
+            const winner = tournamentData.trophies[`grade${grade}`];
+            trophyHtml += `
+                <div class="trophy-card">
+                    <h3>Grade ${grade}</h3>
+                    <i class="fas fa-crown" style="font-size: 2rem; color: #ffd700;"></i>
+                    <div style="margin: 10px 0;">${winner ? winner.toUpperCase() : 'No winner'}</div>
+                    <select id="winner-${grade}" class="trophy-select">
+                        <option value="">Select winner</option>
+                        ${houses.map(h => `<option value="${h.id}" ${winner === h.id ? 'selected' : ''}>${h.name}</option>`).join('')}
+                    </select>
+                    <button onclick="declareWinner('${grade}')" class="declare-winner-btn">Declare Winner</button>
+                </div>
+            `;
+        });
+        document.getElementById('trophyGrid').innerHTML = trophyHtml;
+    }
+    
+    async function declareWinner(grade) {
+        const winner = document.getElementById(`winner-${grade}`).value;
+        if (!winner) { alert('Select a winner'); return; }
+        
+        tournamentData.trophies[`grade${grade}`] = winner;
+        tournamentData.competitions[`grade${grade}`][winner].wins += 1;
+        
+        renderTrophies();
+        renderCurrentGrade();
+        showStatus(`🏆 Grade ${grade} winner: ${winner.toUpperCase()}`);
+    }
+    
+    async function resetGrade(grade) {
+        if (!confirm(`Reset Grade ${grade}?`)) return;
+        
+        houses.forEach(house => {
+            tournamentData.competitions[`grade${grade}`][house] = { score: 0, wins: 0, matches: 0, status: 'Active' };
+        });
+        tournamentData.trophies[`grade${grade}`] = null;
+        
+        if (currentGrade === grade) renderCurrentGrade();
+        renderTrophies();
+        showStatus(`Grade ${grade} reset`);
+    }
+    
+    async function resetAll() {
+        if (!confirm('⚠️ Reset ENTIRE tournament?')) return;
+        
+        ['9', '10', '11', '12'].forEach(grade => {
+            houses.forEach(house => {
+                tournamentData.competitions[`grade${grade}`][house] = { score: 0, wins: 0, matches: 0, status: 'Active' };
+            });
+            tournamentData.trophies[`grade${grade}`] = null;
+        });
+        
+        renderCurrentGrade();
+        renderTrophies();
+        showStatus('🏆 Entire tournament reset');
+    }
+    
+    async function saveToServer() {
+        try {
+            await fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'save',
+                    competitions: tournamentData.competitions,
+                    trophies: tournamentData.trophies
+                })
+            });
+            showStatus('✅ All changes saved to Google Sheets!');
+        } catch (error) {
+            console.error(error);
+            showStatus('❌ Save failed', 3000);
+        }
+    }
+    
+    function showStatus(message, duration = 2000) {
+        const status = document.getElementById('saveStatus');
+        status.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        status.style.display = 'block';
+        setTimeout(() => { status.style.display = 'none'; }, duration);
+    }
+</script>
 </body>
 </html>
